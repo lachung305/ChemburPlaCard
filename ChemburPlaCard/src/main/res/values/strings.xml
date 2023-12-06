@@ -1,1 +1,9 @@
-<resources></resources>
+<resources>
+
+    <string name="txtinter">Need Internet</string>
+    <string name="txtinternet">Internet is necessary for load all functionality...</string>
+    <string name="qureka_name">Play &amp; Win cash</string>
+    <string name="qureka_name1">Play &amp; Win Cash</string>
+    <string name="qureka_sub">Mega Game Award for 5,00,000 coins</string>
+
+</resources>

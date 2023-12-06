@@ -1,6 +1,7 @@
 package leaflist.showcard.meadiablink.chemburplacard;
 
-import static com.google.adsshow.My_Manage.app_data;
+
+import static leaflist.showcard.meadiablink.chemburplacard.Chembur_Showcard.dataresponsearray;
 
 import android.app.Activity;
 import android.app.Application;
@@ -47,8 +48,8 @@ public class AppOpen implements LifecycleObserver, Application.ActivityLifecycle
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     public void onStart() {
-        if (app_data != null && app_data.size() > 0) {
-            My_Manage.getInstance(currentActivity).show_appopen_ads(new My_Manage.MyCallback() {
+        if (dataresponsearray != null && dataresponsearray.size() > 0) {
+            Chembur_Showcard.getInstance(currentActivity).show_appopen_ads(new Chembur_Showcard.AppDataback() {
                 @Override
                 public void OnCall() {
                     currentActivity = null;

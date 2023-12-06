@@ -19,10 +19,10 @@ import com.google.android.gms.ads.nativead.NativeAdView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NativeAds {
+public class ChMediumNative {
 
     public Context activity;
-    public NativeAds(Context context) {
+    public ChMediumNative(Context context) {
         this.activity = context;
     }
 
