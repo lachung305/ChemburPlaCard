@@ -65,10 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
     }
-
-
     public void within() {
         startActivity(new Intent(activity, MainActivity2.class));
         finish();
