@@ -1,7 +1,5 @@
 package livesportstv.mtchscor.tvshowlive.meadiolive.chemburmedia;
 
-import static leaflist.showcard.meadiablink.chemburplacard.Chembur_Showcard.dataresponsearray;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -53,18 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         Chembur_Showcard.getInstance(MainActivity.this).setCarddata(MainActivity.this);
         Chembur_Showcard.getInstance(MainActivity.this).setAppDetail(MainActivity.this, getResources().getString(R.string.app_name), R.mipmap.ic_launcher);
-        Chembur_Showcard.getInstance(MainActivity.this).card_preload(new Chembur_Showcard.AppDataback() {
-            @Override
-            public void OnCall() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        within();
-                    }
-                }, 3000);
-
-            }
-        });
+        Chembur_Showcard.getInstance(MainActivity.this).card_preload(() -> new Handler().postDelayed(this::within, 3000));
     }
     public void within() {
         startActivity(new Intent(activity, MainActivity2.class));

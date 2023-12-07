@@ -15,14 +15,13 @@ public class AppData_Utils {
         SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = settings.edit();
         editor.putString(key, value);
-        editor.commit();
+        editor.apply();
     }
 
     public static AppDataResponse getResponse(Context context) {
         SharedPreferences sharedpreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         String s = sharedpreferences.getString("appdatacard", "");
-        AppDataResponse appDataResponse = new Gson().fromJson(s, AppDataResponse.class);
-        return appDataResponse;
+        return new Gson().fromJson(s, AppDataResponse.class);
     }
 
 }
