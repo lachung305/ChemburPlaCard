@@ -6708,7 +6708,7 @@ public class Chembur_Showcard {
                 LoadCustomQ.myCustom((Activity) activity, appDataResponse.getQurekaUrl());
             }
         });
-        Log.d("MyAppDataResponse", "qureka AppOpen Ad Show");
+        Log.d("MyAppDataResponse", "qureka ChemburAppOpen Ad Show");
         dialog.show();
     }
 

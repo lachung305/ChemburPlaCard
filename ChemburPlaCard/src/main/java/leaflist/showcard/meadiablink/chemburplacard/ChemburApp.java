@@ -9,8 +9,8 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 
-public class App extends Application {
-    AppOpen appOpenManager;
+public class ChemburApp extends Application {
+    ChemburAppOpen chemburAppOpenManager;
     public void onCreate() {
         super.onCreate();
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
@@ -19,7 +19,7 @@ public class App extends Application {
             }
         });
         AudienceNetworkAds.initialize(this);
-        appOpenManager = new AppOpen(this);
+        chemburAppOpenManager = new ChemburAppOpen(this);
     }
 
 

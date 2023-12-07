@@ -12,9 +12,9 @@ import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 import androidx.lifecycle.ProcessLifecycleOwner;
 
-public class AppOpen implements LifecycleObserver, Application.ActivityLifecycleCallbacks {
+public class ChemburAppOpen implements LifecycleObserver, Application.ActivityLifecycleCallbacks {
     private Activity currentActivity;
-    static App blueApp;
+    static ChemburApp blueChemburApp;
 
     public void onActivityCreated(Activity activity, Bundle bundle) {
     }
@@ -40,8 +40,8 @@ public class AppOpen implements LifecycleObserver, Application.ActivityLifecycle
         this.currentActivity = null;
     }
 
-    public AppOpen(App mapp) {
-        blueApp = mapp;
+    public ChemburAppOpen(ChemburApp mapp) {
+        blueChemburApp = mapp;
         mapp.registerActivityLifecycleCallbacks(this);
         ProcessLifecycleOwner.get().getLifecycle().addObserver(this);
     }
