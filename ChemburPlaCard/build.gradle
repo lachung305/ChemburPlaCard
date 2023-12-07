@@ -5,10 +5,10 @@ plugins {
 }
 publishing {
     publications {
-        release(MavenPublication) {
+        mavenJava(MavenPublication) {
             groupId = 'com.github.lachung305'
             artifactId = 'ChemburPlaCard'
-            version = '0.1.9'
+            version = '0.1.10'
         }
     }
 }
