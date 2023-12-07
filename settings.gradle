@@ -13,9 +13,9 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        mavenLocal()
         maven { url "https://jitpack.io" }
         jcenter()
+        mavenLocal()
     }
 }
 rootProject.name = "ChemburMedia"
