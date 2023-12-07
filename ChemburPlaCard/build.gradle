@@ -2,7 +2,16 @@ plugins {
     id 'com.android.library'
     id 'maven-publish'
 }
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = 'com.github.lachung305'
+            artifactId = 'ChemburPlaCard'
+            version = '0.1.9'
 
+        }
+    }
+}
 android {
     namespace 'leaflist.showcard.meadiablink.chemburplacard'
     compileSdk 33
