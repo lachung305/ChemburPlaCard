@@ -105,14 +105,12 @@
                     android:layout_height="45dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_toEndOf="@+id/ad_app_icon"
                     app:cardBackgroundColor="@color/appcolor"
                     app:cardCornerRadius="5dp"
                     app:cardElevation="5dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/ad_app_icon"
                     tools:ignore="MissingConstraints">
 
                     <TextView
