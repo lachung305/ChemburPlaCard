@@ -39,4 +39,6 @@ public class Constnt {
     // Appopen
     public static boolean isadmob_appopen_Loaded;
     public static boolean isadx_appopen_Loaded;
+
+    public static String appdatacard="appdatacard";
 }

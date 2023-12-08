@@ -19,3 +19,12 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-keep class leaflist.showcard.meadiablink.chemburplacard.Chemburmodel.**{ *; }
+-keep class leaflist.showcard.meadiablink.chemburplacard.Constnt.**{ *; }
+
+
+
+-keep class com.google.gson.reflect.TypeToken
+-keep class * extends com.google.gson.reflect.TypeToken
+-keep public class * implements java.lang.reflect.Type

@@ -13,6 +13,7 @@ import leaflist.showcard.meadiablink.chemburplacard.AppData_Utils;
 import leaflist.showcard.meadiablink.chemburplacard.Chembur_Showcard;
 import leaflist.showcard.meadiablink.chemburplacard.ChemburPreferencesManager;
 import leaflist.showcard.meadiablink.chemburplacard.Chemburmodel.AppDataResponse;
+import leaflist.showcard.meadiablink.chemburplacard.Constnt;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         Gson gson = new Gson();
         String favData = gson.toJson(dataItem);
-        AppData_Utils.saveStringtoPrefrence(activity, "appdatacard", favData);
+        AppData_Utils.saveStringtoPrefrence(activity, Constnt.appdatacard, favData);
 
         Chembur_Showcard.getInstance(MainActivity.this).setCarddata(MainActivity.this);
         Chembur_Showcard.getInstance(MainActivity.this).setAppDetail(MainActivity.this, getResources().getString(R.string.app_name), R.mipmap.ic_launcher);

@@ -20,7 +20,7 @@ public class AppData_Utils {
 
     public static AppDataResponse getResponse(Context context) {
         SharedPreferences sharedpreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        String s = sharedpreferences.getString("appdatacard", "");
+        String s = sharedpreferences.getString(Constnt.appdatacard, "");
         return new Gson().fromJson(s, AppDataResponse.class);
     }
 
