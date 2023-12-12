@@ -32,6 +32,7 @@ import static leaflist.showcard.meadiablink.chemburplacard.Constnt.isadx_small_n
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
@@ -120,6 +121,27 @@ public class Chembur_Showcard {
     public static AppDataResponse appDataResponse;
     public static String appname;
     public static int applogo;
+
+    public int current_admob_nativeid = 0;
+    public int current_adx_nativeid = 0;
+    public int current_facebook_nativeid = 0;
+
+    public int current_admob_interid = 0;
+    public int current_adx_interid = 0;
+    public int current_facebook_interid = 0;
+
+    public int current_admob_bannerid = 0;
+    public int current_adx_bannerid = 0;
+    public int current_facebook_bannerid = 0;
+
+    public int current_admob_nativebannerid = 0;
+    public int current_adx_nativebannerid = 0;
+    public int current_facebook_nativebannerid = 0;
+
+    public int current_admob_smallnativeid = 0;
+    public int current_adx_smallnativeid = 0;
+    public int current_facebook_smallnativeid = 0;
+
 
     public void setCarddata(Context activity1) {
         activity = activity1;
@@ -328,7 +350,7 @@ public class Chembur_Showcard {
             if (isGoogleBannerLoaded) return;
             final AdView admob_Banner = new AdView(activity);
             admob_Banner.setAdSize(AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(activity, AdSize.FULL_WIDTH));
-            admob_Banner.setAdUnitId(dataresponsearray.get(0).getAdmobBannerid());
+            admob_Banner.setAdUnitId(getAdsID(dataresponsearray.get(0).getAdmobBannerid(), current_admob_bannerid, 7));
             AdRequest adRequest = new AdRequest.Builder().build();
             admob_Banner.loadAd(adRequest);
             admob_Banner.setAdListener(new AdListener() {
@@ -346,7 +368,7 @@ public class Chembur_Showcard {
                     if (isAdxBannerLoaded) return;
                     final AdManagerAdView adx_Banner = new AdManagerAdView(activity);
                     adx_Banner.setAdSize(AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(activity, AdSize.FULL_WIDTH));
-                    adx_Banner.setAdUnitId(dataresponsearray.get(0).getAdxBannerId());
+                    adx_Banner.setAdUnitId(getAdsID(dataresponsearray.get(0).getAdxBannerId(), current_adx_bannerid, 8));
                     @SuppressLint("VisibleForTests") AdManagerAdRequest adRequest = new AdManagerAdRequest.Builder().build();
                     adx_Banner.loadAd(adRequest);
                     adx_Banner.setAdListener(new AdListener() {
@@ -362,7 +384,7 @@ public class Chembur_Showcard {
                         public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
                             super.onAdFailedToLoad(loadAdError);
                             // Fb Banner
-                            final com.facebook.ads.AdView fb_banner = new com.facebook.ads.AdView(activity, dataresponsearray.get(0).getFbBannerId(), com.facebook.ads.AdSize.BANNER_HEIGHT_50);
+                            final com.facebook.ads.AdView fb_banner = new com.facebook.ads.AdView(activity, getAdsID(dataresponsearray.get(0).getFbBannerId(), current_facebook_bannerid, 9), com.facebook.ads.AdSize.BANNER_HEIGHT_50);
                             com.facebook.ads.AdListener adListener = new com.facebook.ads.AdListener() {
                                 @Override
                                 public void onError(Ad ad, AdError adError) {
@@ -389,6 +411,7 @@ public class Chembur_Showcard {
                     });
                 }
             });
+            switchmode(Constnt.bannermode);
         }
     }
 
@@ -400,7 +423,7 @@ public class Chembur_Showcard {
             if (isAdxBannerLoaded) return;
             final AdManagerAdView adx_Banner = new AdManagerAdView(activity);
             adx_Banner.setAdSize(AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(activity, AdSize.FULL_WIDTH));
-            adx_Banner.setAdUnitId(dataresponsearray.get(0).getAdxBannerId());
+            adx_Banner.setAdUnitId(getAdsID(dataresponsearray.get(0).getAdxBannerId(), current_adx_bannerid, 8));
             @SuppressLint("VisibleForTests") AdManagerAdRequest adRequest = new AdManagerAdRequest.Builder().build();
             adx_Banner.loadAd(adRequest);
             adx_Banner.setAdListener(new AdListener() {
@@ -411,7 +434,7 @@ public class Chembur_Showcard {
                     if (isGoogleBannerLoaded) return;
                     final AdView admob_Banner = new AdView(activity);
                     admob_Banner.setAdSize(AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(activity, AdSize.FULL_WIDTH));
-                    admob_Banner.setAdUnitId(dataresponsearray.get(0).getAdmobBannerid());
+                    admob_Banner.setAdUnitId(getAdsID(dataresponsearray.get(0).getAdmobBannerid(), current_admob_bannerid, 7));
                     AdRequest adRequest = new AdRequest.Builder().build();
                     admob_Banner.loadAd(adRequest);
                     admob_Banner.setAdListener(new AdListener() {
@@ -426,7 +449,7 @@ public class Chembur_Showcard {
                         @Override
                         public void onAdFailedToLoad(@NonNull LoadAdError adError) {
                             // Fb Banner
-                            final com.facebook.ads.AdView fb_banner = new com.facebook.ads.AdView(activity, dataresponsearray.get(0).getFbBannerId(), com.facebook.ads.AdSize.BANNER_HEIGHT_50);
+                            final com.facebook.ads.AdView fb_banner = new com.facebook.ads.AdView(activity, getAdsID(dataresponsearray.get(0).getFbBannerId(), current_facebook_bannerid, 9), com.facebook.ads.AdSize.BANNER_HEIGHT_50);
                             com.facebook.ads.AdListener adListener = new com.facebook.ads.AdListener() {
                                 @Override
                                 public void onAdLoaded(Ad ad) {
@@ -461,6 +484,7 @@ public class Chembur_Showcard {
                     isAdxBannerLoaded = true;
                 }
             });
+            switchmode(Constnt.bannermode);
         }
     }
 
@@ -468,7 +492,7 @@ public class Chembur_Showcard {
     public void preloadBannerAd_FBAA() {
         if (dataresponsearray != null && dataresponsearray.size() > 0) {
             // FB
-            final com.facebook.ads.AdView fb_banner = new com.facebook.ads.AdView(activity, dataresponsearray.get(0).getFbBannerId(), com.facebook.ads.AdSize.BANNER_HEIGHT_50);
+            final com.facebook.ads.AdView fb_banner = new com.facebook.ads.AdView(activity, getAdsID(dataresponsearray.get(0).getFbBannerId(), current_facebook_bannerid, 9), com.facebook.ads.AdSize.BANNER_HEIGHT_50);
             com.facebook.ads.AdListener adListener = new com.facebook.ads.AdListener() {
 
                 @Override
@@ -485,7 +509,7 @@ public class Chembur_Showcard {
                     if (isGoogleBannerLoaded) return;
                     final AdView admob_BannerAd = new AdView(activity);
                     admob_BannerAd.setAdSize(AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(activity, AdSize.FULL_WIDTH));
-                    admob_BannerAd.setAdUnitId(dataresponsearray.get(0).getAdmobBannerid());
+                    admob_BannerAd.setAdUnitId(getAdsID(dataresponsearray.get(0).getAdmobBannerid(), current_admob_bannerid, 7));
                     AdRequest adRequest = new AdRequest.Builder().build();
                     admob_BannerAd.loadAd(adRequest);
                     admob_BannerAd.setAdListener(new AdListener() {
@@ -504,7 +528,7 @@ public class Chembur_Showcard {
                             if (isAdxBannerLoaded) return;
                             final AdManagerAdView adx_Banner = new AdManagerAdView(activity);
                             adx_Banner.setAdSize(AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(activity, AdSize.FULL_WIDTH));
-                            adx_Banner.setAdUnitId(dataresponsearray.get(0).getAdxBannerId());
+                            adx_Banner.setAdUnitId(getAdsID(dataresponsearray.get(0).getAdxBannerId(), current_adx_bannerid, 8));
                             @SuppressLint("VisibleForTests") AdManagerAdRequest adRequest = new AdManagerAdRequest.Builder().build();
                             adx_Banner.loadAd(adRequest);
                             adx_Banner.setAdListener(new AdListener() {
@@ -536,6 +560,7 @@ public class Chembur_Showcard {
                 }
             };
             fb_banner.loadAd(fb_banner.buildLoadAdConfig().withAdListener(adListener).build());
+            switchmode(Constnt.bannermode);
         }
     }
 
@@ -545,7 +570,7 @@ public class Chembur_Showcard {
             if (isGoogleBannerLoaded) return;
             final AdView admob_Banner = new AdView(activity);
             admob_Banner.setAdSize(AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(activity, AdSize.FULL_WIDTH));
-            admob_Banner.setAdUnitId(dataresponsearray.get(0).getAdmobBannerid());
+            admob_Banner.setAdUnitId(getAdsID(dataresponsearray.get(0).getAdmobBannerid(), current_admob_bannerid, 7));
             AdRequest adRequest = new AdRequest.Builder().build();
             admob_Banner.loadAd(adRequest);
             admob_Banner.setAdListener(new AdListener() {
@@ -563,7 +588,7 @@ public class Chembur_Showcard {
                     if (isAdxBannerLoaded) return;
                     final AdManagerAdView adx_Banner = new AdManagerAdView(activity);
                     adx_Banner.setAdSize(AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(activity, AdSize.FULL_WIDTH));
-                    adx_Banner.setAdUnitId(dataresponsearray.get(0).getAdxBannerId());
+                    adx_Banner.setAdUnitId(getAdsID(dataresponsearray.get(0).getAdxBannerId(), current_adx_bannerid, 8));
                     @SuppressLint("VisibleForTests") AdManagerAdRequest adRequest = new AdManagerAdRequest.Builder().build();
                     adx_Banner.loadAd(adRequest);
                     adx_Banner.setAdListener(new AdListener() {
@@ -583,6 +608,7 @@ public class Chembur_Showcard {
                     });
                 }
             });
+            switchmode(Constnt.bannermode);
         }
     }
 
@@ -592,7 +618,7 @@ public class Chembur_Showcard {
             if (isGoogleBannerLoaded) return;
             final AdView admob_Banner = new AdView(activity);
             admob_Banner.setAdSize(AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(activity, AdSize.FULL_WIDTH));
-            admob_Banner.setAdUnitId(dataresponsearray.get(0).getAdmobBannerid());
+            admob_Banner.setAdUnitId(getAdsID(dataresponsearray.get(0).getAdmobBannerid(), current_admob_bannerid, 7));
             AdRequest adRequest = new AdRequest.Builder().build();
             admob_Banner.loadAd(adRequest);
             admob_Banner.setAdListener(new AdListener() {
@@ -607,7 +633,7 @@ public class Chembur_Showcard {
                 @Override
                 public void onAdFailedToLoad(@NonNull LoadAdError adError) {
                     // FB
-                    final com.facebook.ads.AdView fb_banner = new com.facebook.ads.AdView(activity, dataresponsearray.get(0).getFbBannerId(), com.facebook.ads.AdSize.BANNER_HEIGHT_50);
+                    final com.facebook.ads.AdView fb_banner = new com.facebook.ads.AdView(activity, getAdsID(dataresponsearray.get(0).getFbBannerId(), current_facebook_bannerid, 9), com.facebook.ads.AdSize.BANNER_HEIGHT_50);
                     com.facebook.ads.AdListener adListener = new com.facebook.ads.AdListener() {
                         @Override
                         public void onAdLoaded(Ad ad) {
@@ -633,6 +659,7 @@ public class Chembur_Showcard {
                     fb_banner.loadAd(fb_banner.buildLoadAdConfig().withAdListener(adListener).build());
                 }
             });
+            switchmode(Constnt.bannermode);
         }
     }
 
@@ -642,7 +669,7 @@ public class Chembur_Showcard {
             if (isAdxBannerLoaded) return;
             final AdManagerAdView adx_Banner = new AdManagerAdView(activity);
             adx_Banner.setAdSize(AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(activity, AdSize.FULL_WIDTH));
-            adx_Banner.setAdUnitId(dataresponsearray.get(0).getAdxBannerId());
+            adx_Banner.setAdUnitId(getAdsID(dataresponsearray.get(0).getAdxBannerId(), current_adx_bannerid, 8));
             @SuppressLint("VisibleForTests") AdManagerAdRequest adRequest = new AdManagerAdRequest.Builder().build();
             adx_Banner.loadAd(adRequest);
             adx_Banner.setAdListener(new AdListener() {
@@ -661,7 +688,7 @@ public class Chembur_Showcard {
                     if (isGoogleBannerLoaded) return;
                     final AdView admob_Banner = new AdView(activity);
                     admob_Banner.setAdSize(AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(activity, AdSize.FULL_WIDTH));
-                    admob_Banner.setAdUnitId(dataresponsearray.get(0).getAdmobBannerid());
+                    admob_Banner.setAdUnitId(getAdsID(dataresponsearray.get(0).getAdmobBannerid(), current_admob_bannerid, 7));
                     AdRequest adRequest = new AdRequest.Builder().build();
                     admob_Banner.loadAd(adRequest);
                     admob_Banner.setAdListener(new AdListener() {
@@ -680,6 +707,7 @@ public class Chembur_Showcard {
                     });
                 }
             });
+            switchmode(Constnt.bannermode);
         }
 
     }
@@ -690,7 +718,7 @@ public class Chembur_Showcard {
             if (isAdxBannerLoaded) return;
             final AdManagerAdView adx_Banner = new AdManagerAdView(activity);
             adx_Banner.setAdSize(AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(activity, AdSize.FULL_WIDTH));
-            adx_Banner.setAdUnitId(dataresponsearray.get(0).getAdxBannerId());
+            adx_Banner.setAdUnitId(getAdsID(dataresponsearray.get(0).getAdxBannerId(), current_adx_bannerid, 8));
             @SuppressLint("VisibleForTests") AdManagerAdRequest adRequest = new AdManagerAdRequest.Builder().build();
             adx_Banner.loadAd(adRequest);
             adx_Banner.setAdListener(new AdListener() {
@@ -706,7 +734,7 @@ public class Chembur_Showcard {
                 public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
                     super.onAdFailedToLoad(loadAdError);
                     // FB
-                    final com.facebook.ads.AdView fb_banner = new com.facebook.ads.AdView(activity, dataresponsearray.get(0).getFbBannerId(), com.facebook.ads.AdSize.BANNER_HEIGHT_50);
+                    final com.facebook.ads.AdView fb_banner = new com.facebook.ads.AdView(activity, getAdsID(dataresponsearray.get(0).getFbBannerId(), current_facebook_bannerid, 9), com.facebook.ads.AdSize.BANNER_HEIGHT_50);
                     com.facebook.ads.AdListener adListener = new com.facebook.ads.AdListener() {
                         @Override
                         public void onAdLoaded(Ad ad) {
@@ -732,13 +760,14 @@ public class Chembur_Showcard {
                     fb_banner.loadAd(fb_banner.buildLoadAdConfig().withAdListener(adListener).build());
                 }
             });
+            switchmode(Constnt.bannermode);
         }
     }
 
     public void preload_Banner_Fb_Admob() {
         if (dataresponsearray != null && dataresponsearray.size() > 0) {
             // FB
-            final com.facebook.ads.AdView fb_banner = new com.facebook.ads.AdView(activity, dataresponsearray.get(0).getFbBannerId(), com.facebook.ads.AdSize.BANNER_HEIGHT_50);
+            final com.facebook.ads.AdView fb_banner = new com.facebook.ads.AdView(activity, getAdsID(dataresponsearray.get(0).getFbBannerId(), current_facebook_bannerid, 9), com.facebook.ads.AdSize.BANNER_HEIGHT_50);
             com.facebook.ads.AdListener adListener = new com.facebook.ads.AdListener() {
                 @Override
                 public void onAdLoaded(Ad ad) {
@@ -754,7 +783,7 @@ public class Chembur_Showcard {
                     if (isGoogleBannerLoaded) return;
                     final AdView admob_Banner = new AdView(activity);
                     admob_Banner.setAdSize(AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(activity, AdSize.FULL_WIDTH));
-                    admob_Banner.setAdUnitId(dataresponsearray.get(0).getAdmobBannerid());
+                    admob_Banner.setAdUnitId(getAdsID(dataresponsearray.get(0).getAdmobBannerid(), current_admob_bannerid, 7));
                     AdRequest adRequest = new AdRequest.Builder().build();
                     admob_Banner.loadAd(adRequest);
                     admob_Banner.setAdListener(new AdListener() {
@@ -782,13 +811,14 @@ public class Chembur_Showcard {
                 }
             };
             fb_banner.loadAd(fb_banner.buildLoadAdConfig().withAdListener(adListener).build());
+            switchmode(Constnt.bannermode);
         }
     }
 
     public void preload_Banner_Fb_Adx() {
         if (dataresponsearray != null && dataresponsearray.size() > 0) {
             // FB
-            final com.facebook.ads.AdView fb_banner = new com.facebook.ads.AdView(activity, dataresponsearray.get(0).getFbBannerId(), com.facebook.ads.AdSize.BANNER_HEIGHT_50);
+            final com.facebook.ads.AdView fb_banner = new com.facebook.ads.AdView(activity, getAdsID(dataresponsearray.get(0).getFbBannerId(), current_facebook_bannerid, 9), com.facebook.ads.AdSize.BANNER_HEIGHT_50);
             com.facebook.ads.AdListener adListener = new com.facebook.ads.AdListener() {
                 @Override
                 public void onAdLoaded(Ad ad) {
@@ -804,7 +834,7 @@ public class Chembur_Showcard {
                     if (isAdxBannerLoaded) return;
                     final AdManagerAdView adx_Banner = new AdManagerAdView(activity);
                     adx_Banner.setAdSize(AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(activity, AdSize.FULL_WIDTH));
-                    adx_Banner.setAdUnitId(dataresponsearray.get(0).getAdxBannerId());
+                    adx_Banner.setAdUnitId(getAdsID(dataresponsearray.get(0).getAdxBannerId(), current_adx_bannerid, 8));
                     @SuppressLint("VisibleForTests") AdManagerAdRequest adRequest = new AdManagerAdRequest.Builder().build();
                     adx_Banner.loadAd(adRequest);
                     adx_Banner.setAdListener(new AdListener() {
@@ -833,6 +863,7 @@ public class Chembur_Showcard {
                 }
             };
             fb_banner.loadAd(fb_banner.buildLoadAdConfig().withAdListener(adListener).build());
+            switchmode(Constnt.bannermode);
         }
     }
 
@@ -872,7 +903,7 @@ public class Chembur_Showcard {
             if (isadmob_small_native_banner_Loaded) {
                 return;
             }
-            final AdLoader.Builder builder = new AdLoader.Builder(activity, dataresponsearray.get(0).getAdmobNativeid());
+            final AdLoader.Builder builder = new AdLoader.Builder(activity, getAdsID(dataresponsearray.get(0).getAdmobNativeid(), current_admob_nativebannerid, 10));
             builder.forNativeAd(nativeAd -> {
                 if (Admob_small_native_banner_Ad.size() > 0) {
                     Admob_small_native_banner_Ad.clear();
@@ -892,7 +923,7 @@ public class Chembur_Showcard {
                     if (isadx_small_native_banner_Loaded) {
                         return;
                     }
-                    final AdLoader.Builder builder = new AdLoader.Builder(activity, dataresponsearray.get(0).getAdxNativeId());
+                    final AdLoader.Builder builder = new AdLoader.Builder(activity, getAdsID(dataresponsearray.get(0).getAdxNativeId(), current_adx_nativebannerid, 11));
                     builder.forNativeAd(nativeAd -> {
                         if (Adx_small_native_banner_Ad.size() > 0) {
                             Adx_small_native_banner_Ad.clear();
@@ -912,7 +943,7 @@ public class Chembur_Showcard {
                             if (isFBNative_Banner_Loaded) {
                                 return;
                             }
-                            final NativeBannerAd fb_nativeBanner = new NativeBannerAd(activity, dataresponsearray.get(0).getFbNativeBannerId());
+                            final NativeBannerAd fb_nativeBanner = new NativeBannerAd(activity, getAdsID(dataresponsearray.get(0).getFbNativeBannerId(), current_facebook_nativebannerid, 12));
                             NativeAdListener nativeAdListener = new NativeAdListener() {
                                 @Override
                                 public void onAdLoaded(Ad ad) {
@@ -961,6 +992,7 @@ public class Chembur_Showcard {
                     super.onAdLoaded();
                 }
             }).build().loadAd(new AdRequest.Builder().build());
+            switchmode(Constnt.nativebannermode);
         }
     }
 
@@ -972,7 +1004,7 @@ public class Chembur_Showcard {
             if (isadx_small_native_banner_Loaded) {
                 return;
             }
-            final AdLoader.Builder builder = new AdLoader.Builder(activity, dataresponsearray.get(0).getAdxNativeId());
+            final AdLoader.Builder builder = new AdLoader.Builder(activity, getAdsID(dataresponsearray.get(0).getAdxNativeId(), current_adx_nativebannerid, 11));
             builder.forNativeAd(nativeAd -> {
                 if (Adx_small_native_banner_Ad.size() > 0) {
                     Adx_small_native_banner_Ad.clear();
@@ -994,7 +1026,7 @@ public class Chembur_Showcard {
                     if (isadmob_small_native_banner_Loaded) {
                         return;
                     }
-                    final AdLoader.Builder builder = new AdLoader.Builder(activity, dataresponsearray.get(0).getAdmobNativeid());
+                    final AdLoader.Builder builder = new AdLoader.Builder(activity, getAdsID(dataresponsearray.get(0).getAdmobNativeid(), current_admob_nativebannerid, 10));
                     builder.forNativeAd(nativeAd -> {
                         Log.d("MyAppDataResponse", "Admob Small Native Banner Ad Loaded");
                         if (Admob_small_native_banner_Ad.size() > 0) {
@@ -1016,7 +1048,7 @@ public class Chembur_Showcard {
                             if (isFBNative_Banner_Loaded) {
                                 return;
                             }
-                            final NativeBannerAd fb_native_BannerAd = new NativeBannerAd(activity, dataresponsearray.get(0).getFbNativeBannerId());
+                            final NativeBannerAd fb_native_BannerAd = new NativeBannerAd(activity, getAdsID(dataresponsearray.get(0).getFbNativeBannerId(), current_facebook_nativebannerid, 12));
                             NativeAdListener nativeAdListener = new NativeAdListener() {
                                 @Override
                                 public void onMediaDownloaded(Ad ad) {
@@ -1069,6 +1101,7 @@ public class Chembur_Showcard {
                     super.onAdLoaded();
                 }
             }).build().loadAd(new AdManagerAdRequest.Builder().build());
+            switchmode(Constnt.nativebannermode);
         }
     }
 
@@ -1079,7 +1112,7 @@ public class Chembur_Showcard {
             if (isFBNative_Banner_Loaded) {
                 return;
             }
-            final NativeBannerAd fb_nativeBanner_Ad = new NativeBannerAd(activity, dataresponsearray.get(0).getFbNativeBannerId());
+            final NativeBannerAd fb_nativeBanner_Ad = new NativeBannerAd(activity, getAdsID(dataresponsearray.get(0).getFbNativeBannerId(), current_facebook_nativebannerid, 12));
             NativeAdListener nativeAdListener = new NativeAdListener() {
                 @Override
                 public void onMediaDownloaded(Ad ad) {
@@ -1094,7 +1127,7 @@ public class Chembur_Showcard {
                     if (isadmob_small_native_banner_Loaded) {
                         return;
                     }
-                    final AdLoader.Builder builder = new AdLoader.Builder(activity, dataresponsearray.get(0).getAdmobNativeid());
+                    final AdLoader.Builder builder = new AdLoader.Builder(activity, getAdsID(dataresponsearray.get(0).getAdmobNativeid(), current_admob_nativebannerid, 10));
                     builder.forNativeAd(nativeAd -> {
                         if (Admob_small_native_banner_Ad.size() > 0) {
                             Admob_small_native_banner_Ad.clear();
@@ -1116,7 +1149,7 @@ public class Chembur_Showcard {
                             if (isadx_small_native_banner_Loaded) {
                                 return;
                             }
-                            final AdLoader.Builder builder = new AdLoader.Builder(activity, dataresponsearray.get(0).getAdxNativeId());
+                            final AdLoader.Builder builder = new AdLoader.Builder(activity, getAdsID(dataresponsearray.get(0).getAdxNativeId(), current_adx_nativebannerid, 11));
                             builder.forNativeAd(nativeAd -> {
                                 if (Adx_small_native_banner_Ad.size() > 0) {
                                     Adx_small_native_banner_Ad.clear();
@@ -1174,6 +1207,7 @@ public class Chembur_Showcard {
             };
             // Request an ad
             fb_nativeBanner_Ad.loadAd(fb_nativeBanner_Ad.buildLoadAdConfig().withAdListener(nativeAdListener).build());
+            switchmode(Constnt.nativebannermode);
         }
     }
 
@@ -1183,7 +1217,7 @@ public class Chembur_Showcard {
             if (isadmob_small_native_banner_Loaded) {
                 return;
             }
-            final AdLoader.Builder builder = new AdLoader.Builder(activity, dataresponsearray.get(0).getAdmobNativeid());
+            final AdLoader.Builder builder = new AdLoader.Builder(activity, getAdsID(dataresponsearray.get(0).getAdmobNativeid(), current_admob_nativebannerid, 10));
             builder.forNativeAd(nativeAd -> {
                 if (Admob_small_native_banner_Ad.size() > 0) {
                     Admob_small_native_banner_Ad.clear();
@@ -1205,7 +1239,7 @@ public class Chembur_Showcard {
                     if (isadx_small_native_banner_Loaded) {
                         return;
                     }
-                    final AdLoader.Builder builder = new AdLoader.Builder(activity, dataresponsearray.get(0).getAdxNativeId());
+                    final AdLoader.Builder builder = new AdLoader.Builder(activity, getAdsID(dataresponsearray.get(0).getAdxNativeId(), current_adx_nativebannerid, 11));
                     builder.forNativeAd(nativeAd -> {
                         if (Adx_small_native_banner_Ad.size() > 0) {
                             Adx_small_native_banner_Ad.clear();
@@ -1236,6 +1270,7 @@ public class Chembur_Showcard {
                     super.onAdLoaded();
                 }
             }).build().loadAd(new AdRequest.Builder().build());
+            switchmode(Constnt.nativebannermode);
         }
     }
 
@@ -1245,7 +1280,7 @@ public class Chembur_Showcard {
             if (isadmob_small_native_banner_Loaded) {
                 return;
             }
-            final AdLoader.Builder builder = new AdLoader.Builder(activity, dataresponsearray.get(0).getAdmobNativeid());
+            final AdLoader.Builder builder = new AdLoader.Builder(activity, getAdsID(dataresponsearray.get(0).getAdmobNativeid(), current_admob_nativebannerid, 10));
             builder.forNativeAd(nativeAd -> {
                 if (Admob_small_native_banner_Ad.size() > 0) {
                     Admob_small_native_banner_Ad.clear();
@@ -1267,7 +1302,7 @@ public class Chembur_Showcard {
                     if (isFBNative_Banner_Loaded) {
                         return;
                     }
-                    final NativeBannerAd fb_native_BannerAd = new NativeBannerAd(activity, dataresponsearray.get(0).getFbNativeBannerId());
+                    final NativeBannerAd fb_native_BannerAd = new NativeBannerAd(activity, getAdsID(dataresponsearray.get(0).getFbNativeBannerId(), current_facebook_nativebannerid, 12));
                     NativeAdListener nativeAdListener = new NativeAdListener() {
                         @Override
                         public void onMediaDownloaded(Ad ad) {
@@ -1314,6 +1349,7 @@ public class Chembur_Showcard {
                     super.onAdLoaded();
                 }
             }).build().loadAd(new AdRequest.Builder().build());
+            switchmode(Constnt.nativebannermode);
         }
     }
 
@@ -1323,7 +1359,7 @@ public class Chembur_Showcard {
             if (isadx_small_native_banner_Loaded) {
                 return;
             }
-            final AdLoader.Builder builder = new AdLoader.Builder(activity, dataresponsearray.get(0).getAdxNativeId());
+            final AdLoader.Builder builder = new AdLoader.Builder(activity, getAdsID(dataresponsearray.get(0).getAdxNativeId(), current_adx_nativebannerid, 11));
             builder.forNativeAd(nativeAd -> {
                 if (Adx_small_native_banner_Ad.size() > 0) {
                     Adx_small_native_banner_Ad.clear();
@@ -1345,7 +1381,7 @@ public class Chembur_Showcard {
                     if (isadmob_small_native_banner_Loaded) {
                         return;
                     }
-                    final AdLoader.Builder builder = new AdLoader.Builder(activity, dataresponsearray.get(0).getAdmobNativeid());
+                    final AdLoader.Builder builder = new AdLoader.Builder(activity, getAdsID(dataresponsearray.get(0).getAdmobNativeid(), current_admob_nativebannerid, 10));
                     builder.forNativeAd(nativeAd -> {
                         if (Admob_small_native_banner_Ad.size() > 0) {
                             Admob_small_native_banner_Ad.clear();
@@ -1376,6 +1412,7 @@ public class Chembur_Showcard {
                     super.onAdLoaded();
                 }
             }).build().loadAd(new AdManagerAdRequest.Builder().build());
+            switchmode(Constnt.nativebannermode);
         }
     }
 
@@ -1385,7 +1422,7 @@ public class Chembur_Showcard {
             if (isadx_small_native_banner_Loaded) {
                 return;
             }
-            final AdLoader.Builder builder = new AdLoader.Builder(activity, dataresponsearray.get(0).getAdxNativeId());
+            final AdLoader.Builder builder = new AdLoader.Builder(activity, getAdsID(dataresponsearray.get(0).getAdxNativeId(), current_adx_nativebannerid, 11));
             builder.forNativeAd(nativeAd -> {
                 if (Adx_small_native_banner_Ad.size() > 0) {
                     Adx_small_native_banner_Ad.clear();
@@ -1407,7 +1444,7 @@ public class Chembur_Showcard {
                     if (isFBNative_Banner_Loaded) {
                         return;
                     }
-                    final NativeBannerAd fb_native_BannerAd = new NativeBannerAd(activity, dataresponsearray.get(0).getFbNativeBannerId());
+                    final NativeBannerAd fb_native_BannerAd = new NativeBannerAd(activity, getAdsID(dataresponsearray.get(0).getFbNativeBannerId(), current_facebook_nativebannerid, 12));
                     NativeAdListener nativeAdListener = new NativeAdListener() {
                         @Override
                         public void onMediaDownloaded(Ad ad) {
@@ -1454,6 +1491,7 @@ public class Chembur_Showcard {
                     super.onAdLoaded();
                 }
             }).build().loadAd(new AdManagerAdRequest.Builder().build());
+            switchmode(Constnt.nativebannermode);
         }
     }
 
@@ -1464,7 +1502,7 @@ public class Chembur_Showcard {
             if (isFBNative_Banner_Loaded) {
                 return;
             }
-            final NativeBannerAd fb_native_BannerAd = new NativeBannerAd(activity, dataresponsearray.get(0).getFbNativeBannerId());
+            final NativeBannerAd fb_native_BannerAd = new NativeBannerAd(activity, getAdsID(dataresponsearray.get(0).getFbNativeBannerId(), current_facebook_nativebannerid, 12));
             NativeAdListener nativeAdListener = new NativeAdListener() {
                 @Override
                 public void onMediaDownloaded(Ad ad) {
@@ -1479,7 +1517,7 @@ public class Chembur_Showcard {
                     if (isadmob_small_native_banner_Loaded) {
                         return;
                     }
-                    final AdLoader.Builder builder = new AdLoader.Builder(activity, dataresponsearray.get(0).getAdmobNativeid());
+                    final AdLoader.Builder builder = new AdLoader.Builder(activity, getAdsID(dataresponsearray.get(0).getAdmobNativeid(), current_admob_nativebannerid, 10));
                     builder.forNativeAd(nativeAd -> {
                         if (Admob_small_native_banner_Ad.size() > 0) {
                             Admob_small_native_banner_Ad.clear();
@@ -1533,6 +1571,7 @@ public class Chembur_Showcard {
             };
             // Request an ad
             fb_native_BannerAd.loadAd(fb_native_BannerAd.buildLoadAdConfig().withAdListener(nativeAdListener).build());
+            switchmode(Constnt.nativebannermode);
         }
     }
 
@@ -1542,7 +1581,7 @@ public class Chembur_Showcard {
             if (isFBNative_Banner_Loaded) {
                 return;
             }
-            final NativeBannerAd fb_native_BannerAd = new NativeBannerAd(activity, dataresponsearray.get(0).getFbNativeBannerId());
+            final NativeBannerAd fb_native_BannerAd = new NativeBannerAd(activity, getAdsID(dataresponsearray.get(0).getFbNativeBannerId(), current_facebook_nativebannerid, 12));
             NativeAdListener nativeAdListener = new NativeAdListener() {
                 @Override
                 public void onMediaDownloaded(Ad ad) {
@@ -1557,7 +1596,7 @@ public class Chembur_Showcard {
                     if (isadx_small_native_banner_Loaded) {
                         return;
                     }
-                    final AdLoader.Builder builder = new AdLoader.Builder(activity, dataresponsearray.get(0).getAdxNativeId());
+                    final AdLoader.Builder builder = new AdLoader.Builder(activity, getAdsID(dataresponsearray.get(0).getAdxNativeId(), current_adx_nativebannerid, 11));
                     builder.forNativeAd(nativeAd -> {
                         if (Adx_small_native_banner_Ad.size() > 0) {
                             Adx_small_native_banner_Ad.clear();
@@ -1611,6 +1650,7 @@ public class Chembur_Showcard {
             };
             // Request an ad
             fb_native_BannerAd.loadAd(fb_native_BannerAd.buildLoadAdConfig().withAdListener(nativeAdListener).build());
+            switchmode(Constnt.nativebannermode);
         }
     }
 
@@ -1648,7 +1688,7 @@ public class Chembur_Showcard {
             if (isAdmob_small_native_Loaded) {
                 return;
             }
-            final AdLoader.Builder builder = new AdLoader.Builder(activity, dataresponsearray.get(0).getAdmobNativeid());
+            final AdLoader.Builder builder = new AdLoader.Builder(activity, getAdsID(dataresponsearray.get(0).getAdmobNativeid(), current_admob_smallnativeid, 13));
             builder.forNativeAd(nativeAd -> {
                 Admob_small_native_Ad.add(nativeAd);
                 isAdmob_small_native_Loaded = true;
@@ -1664,7 +1704,7 @@ public class Chembur_Showcard {
                     if (isadx_small_native_Loaded) {
                         return;
                     }
-                    final AdLoader.Builder builder = new AdLoader.Builder(activity, dataresponsearray.get(0).getAdxNativeId());
+                    final AdLoader.Builder builder = new AdLoader.Builder(activity, getAdsID(dataresponsearray.get(0).getAdxNativeId(), current_adx_smallnativeid, 14));
                     builder.forNativeAd(nativeAd -> {
                         Adx_small_native_Ad.add(nativeAd);
                         isadx_small_native_Loaded = true;
@@ -1680,7 +1720,7 @@ public class Chembur_Showcard {
                             if (isFBNative_Banner_Loaded) {
                                 return;
                             }
-                            final NativeBannerAd fb_nativeBanner = new NativeBannerAd(activity, dataresponsearray.get(0).getFbNativeBannerId());
+                            final NativeBannerAd fb_nativeBanner = new NativeBannerAd(activity, getAdsID(dataresponsearray.get(0).getFbNativeBannerId(), current_facebook_smallnativeid, 15));
                             NativeAdListener nativeAdListener = new NativeAdListener() {
                                 @Override
                                 public void onMediaDownloaded(Ad ad) {
@@ -1726,6 +1766,7 @@ public class Chembur_Showcard {
                     super.onAdLoaded();
                 }
             }).build().loadAd(new AdRequest.Builder().build());
+            switchmode(Constnt.smallnativemode);
         }
     }
 
@@ -1736,7 +1777,7 @@ public class Chembur_Showcard {
             if (isadx_small_native_Loaded) {
                 return;
             }
-            final AdLoader.Builder builder = new AdLoader.Builder(activity, dataresponsearray.get(0).getAdxNativeId());
+            final AdLoader.Builder builder = new AdLoader.Builder(activity, getAdsID(dataresponsearray.get(0).getAdxNativeId(), current_adx_smallnativeid, 14));
             builder.forNativeAd(nativeAd -> {
                 Adx_small_native_Ad.add(nativeAd);
                 isadx_small_native_Loaded = true;
@@ -1752,7 +1793,7 @@ public class Chembur_Showcard {
                     if (isAdmob_small_native_Loaded) {
                         return;
                     }
-                    final AdLoader.Builder builder = new AdLoader.Builder(activity, dataresponsearray.get(0).getAdmobNativeid());
+                    final AdLoader.Builder builder = new AdLoader.Builder(activity, getAdsID(dataresponsearray.get(0).getAdmobNativeid(), current_admob_smallnativeid, 13));
                     builder.forNativeAd(nativeAd -> {
                         Admob_small_native_Ad.add(nativeAd);
                         isAdmob_small_native_Loaded = true;
@@ -1768,7 +1809,7 @@ public class Chembur_Showcard {
                             if (isFBNative_Banner_Loaded) {
                                 return;
                             }
-                            final NativeBannerAd fb_nativeBanner = new NativeBannerAd(activity, dataresponsearray.get(0).getFbNativeBannerId());
+                            final NativeBannerAd fb_nativeBanner = new NativeBannerAd(activity, getAdsID(dataresponsearray.get(0).getFbNativeBannerId(), current_facebook_smallnativeid, 15));
                             NativeAdListener nativeAdListener = new NativeAdListener() {
                                 @Override
                                 public void onMediaDownloaded(Ad ad) {
@@ -1814,6 +1855,7 @@ public class Chembur_Showcard {
                     super.onAdLoaded();
                 }
             }).build().loadAd(new AdManagerAdRequest.Builder().build());
+            switchmode(Constnt.smallnativemode);
         }
     }
 
@@ -1824,7 +1866,7 @@ public class Chembur_Showcard {
             if (isFBNative_Banner_Loaded) {
                 return;
             }
-            final NativeBannerAd fb_nativeBanner = new NativeBannerAd(activity, dataresponsearray.get(0).getFbNativeBannerId());
+            final NativeBannerAd fb_nativeBanner = new NativeBannerAd(activity, getAdsID(dataresponsearray.get(0).getFbNativeBannerId(), current_facebook_smallnativeid, 15));
             NativeAdListener nativeAdListener = new NativeAdListener() {
 
                 @Override
@@ -1848,7 +1890,7 @@ public class Chembur_Showcard {
                     if (isAdmob_small_native_Loaded) {
                         return;
                     }
-                    AdLoader.Builder builder = new AdLoader.Builder(activity, dataresponsearray.get(0).getAdmobNativeid());
+                    AdLoader.Builder builder = new AdLoader.Builder(activity, getAdsID(dataresponsearray.get(0).getAdmobNativeid(), current_admob_smallnativeid, 13));
                     builder.forNativeAd(nativeAd -> {
                         Admob_small_native_Ad.add(nativeAd);
                         isAdmob_small_native_Loaded = true;
@@ -1864,7 +1906,7 @@ public class Chembur_Showcard {
                             if (isadx_small_native_Loaded) {
                                 return;
                             }
-                            AdLoader.Builder builder = new AdLoader.Builder(activity, dataresponsearray.get(0).getAdxNativeId());
+                            AdLoader.Builder builder = new AdLoader.Builder(activity, getAdsID(dataresponsearray.get(0).getAdxNativeId(), current_adx_smallnativeid, 14));
                             builder.forNativeAd(nativeAd -> {
                                 Adx_small_native_Ad.add(nativeAd);
                                 isadx_small_native_Loaded = true;
@@ -1903,6 +1945,7 @@ public class Chembur_Showcard {
             };
             // Request an ad
             fb_nativeBanner.loadAd(fb_nativeBanner.buildLoadAdConfig().withAdListener(nativeAdListener).build());
+            switchmode(Constnt.smallnativemode);
         }
     }
 
@@ -1912,7 +1955,7 @@ public class Chembur_Showcard {
             if (isAdmob_small_native_Loaded) {
                 return;
             }
-            final AdLoader.Builder builder = new AdLoader.Builder(activity, dataresponsearray.get(0).getAdmobNativeid());
+            final AdLoader.Builder builder = new AdLoader.Builder(activity, getAdsID(dataresponsearray.get(0).getAdmobNativeid(), current_admob_smallnativeid, 13));
             builder.forNativeAd(nativeAd -> {
                 Admob_small_native_Ad.add(nativeAd);
                 isAdmob_small_native_Loaded = true;
@@ -1928,7 +1971,7 @@ public class Chembur_Showcard {
                     if (isadx_small_native_Loaded) {
                         return;
                     }
-                    final AdLoader.Builder builder = new AdLoader.Builder(activity, dataresponsearray.get(0).getAdxNativeId());
+                    final AdLoader.Builder builder = new AdLoader.Builder(activity, getAdsID(dataresponsearray.get(0).getAdxNativeId(), current_adx_smallnativeid, 14));
                     builder.forNativeAd(nativeAd -> {
                         Adx_small_native_Ad.add(nativeAd);
                         isadx_small_native_Loaded = true;
@@ -1953,6 +1996,7 @@ public class Chembur_Showcard {
                     super.onAdLoaded();
                 }
             }).build().loadAd(new AdRequest.Builder().build());
+            switchmode(Constnt.smallnativemode);
         }
     }
 
@@ -1962,7 +2006,7 @@ public class Chembur_Showcard {
             if (isAdmob_small_native_Loaded) {
                 return;
             }
-            final AdLoader.Builder builder = new AdLoader.Builder(activity, dataresponsearray.get(0).getAdmobNativeid());
+            final AdLoader.Builder builder = new AdLoader.Builder(activity, getAdsID(dataresponsearray.get(0).getAdmobNativeid(), current_admob_smallnativeid, 13));
             builder.forNativeAd(nativeAd -> {
                 Admob_small_native_Ad.add(nativeAd);
                 isAdmob_small_native_Loaded = true;
@@ -1978,7 +2022,7 @@ public class Chembur_Showcard {
                     if (isFBNative_Banner_Loaded) {
                         return;
                     }
-                    final NativeBannerAd fb_nativeBanner = new NativeBannerAd(activity, dataresponsearray.get(0).getFbNativeBannerId());
+                    final NativeBannerAd fb_nativeBanner = new NativeBannerAd(activity, getAdsID(dataresponsearray.get(0).getFbNativeBannerId(), current_facebook_smallnativeid, 15));
                     NativeAdListener nativeAdListener = new NativeAdListener() {
                         @Override
                         public void onMediaDownloaded(Ad ad) {
@@ -2019,6 +2063,7 @@ public class Chembur_Showcard {
                     super.onAdLoaded();
                 }
             }).build().loadAd(new AdRequest.Builder().build());
+            switchmode(Constnt.smallnativemode);
         }
     }
 
@@ -2028,7 +2073,7 @@ public class Chembur_Showcard {
             if (isadx_small_native_Loaded) {
                 return;
             }
-            final AdLoader.Builder builder = new AdLoader.Builder(activity, dataresponsearray.get(0).getAdxNativeId());
+            final AdLoader.Builder builder = new AdLoader.Builder(activity, getAdsID(dataresponsearray.get(0).getAdxNativeId(), current_adx_smallnativeid, 14));
             builder.forNativeAd(nativeAd -> {
                 Adx_small_native_Ad.add(nativeAd);
                 isadx_small_native_Loaded = true;
@@ -2044,7 +2089,7 @@ public class Chembur_Showcard {
                     if (isAdmob_small_native_Loaded) {
                         return;
                     }
-                    final AdLoader.Builder builder = new AdLoader.Builder(activity, dataresponsearray.get(0).getAdmobNativeid());
+                    final AdLoader.Builder builder = new AdLoader.Builder(activity, getAdsID(dataresponsearray.get(0).getAdmobNativeid(), current_admob_smallnativeid, 13));
                     builder.forNativeAd(nativeAd -> {
                         Admob_small_native_Ad.add(nativeAd);
                         isAdmob_small_native_Loaded = true;
@@ -2069,6 +2114,7 @@ public class Chembur_Showcard {
                     super.onAdLoaded();
                 }
             }).build().loadAd(new AdManagerAdRequest.Builder().build());
+            switchmode(Constnt.smallnativemode);
         }
     }
 
@@ -2078,7 +2124,7 @@ public class Chembur_Showcard {
             if (isadx_small_native_Loaded) {
                 return;
             }
-            final AdLoader.Builder builder = new AdLoader.Builder(activity, dataresponsearray.get(0).getAdxNativeId());
+            final AdLoader.Builder builder = new AdLoader.Builder(activity, getAdsID(dataresponsearray.get(0).getAdxNativeId(), current_adx_smallnativeid, 14));
             builder.forNativeAd(nativeAd -> {
                 Adx_small_native_Ad.add(nativeAd);
                 isadx_small_native_Loaded = true;
@@ -2094,7 +2140,7 @@ public class Chembur_Showcard {
                     if (isFBNative_Banner_Loaded) {
                         return;
                     }
-                    final NativeBannerAd fb_nativeBanner = new NativeBannerAd(activity, dataresponsearray.get(0).getFbNativeBannerId());
+                    final NativeBannerAd fb_nativeBanner = new NativeBannerAd(activity, getAdsID(dataresponsearray.get(0).getFbNativeBannerId(), current_facebook_smallnativeid, 15));
                     NativeAdListener nativeAdListener = new NativeAdListener() {
                         @Override
                         public void onMediaDownloaded(Ad ad) {
@@ -2135,6 +2181,7 @@ public class Chembur_Showcard {
                     super.onAdLoaded();
                 }
             }).build().loadAd(new AdManagerAdRequest.Builder().build());
+            switchmode(Constnt.smallnativemode);
         }
     }
 
@@ -2145,7 +2192,7 @@ public class Chembur_Showcard {
             if (isFBNative_Banner_Loaded) {
                 return;
             }
-            final NativeBannerAd fb_nativeBanner = new NativeBannerAd(activity, dataresponsearray.get(0).getFbNativeBannerId());
+            final NativeBannerAd fb_nativeBanner = new NativeBannerAd(activity, getAdsID(dataresponsearray.get(0).getFbNativeBannerId(), current_facebook_smallnativeid, 15));
             NativeAdListener nativeAdListener = new NativeAdListener() {
                 @Override
                 public void onMediaDownloaded(Ad ad) {
@@ -2160,7 +2207,7 @@ public class Chembur_Showcard {
                     if (isAdmob_small_native_Loaded) {
                         return;
                     }
-                    final AdLoader.Builder builder = new AdLoader.Builder(activity, dataresponsearray.get(0).getAdmobNativeid());
+                    final AdLoader.Builder builder = new AdLoader.Builder(activity, getAdsID(dataresponsearray.get(0).getAdmobNativeid(), current_admob_smallnativeid, 13));
                     builder.forNativeAd(nativeAd -> {
                         Admob_small_native_Ad.add(nativeAd);
                         isAdmob_small_native_Loaded = true;
@@ -2202,6 +2249,7 @@ public class Chembur_Showcard {
             };
             // Request an ad
             fb_nativeBanner.loadAd(fb_nativeBanner.buildLoadAdConfig().withAdListener(nativeAdListener).build());
+            switchmode(Constnt.smallnativemode);
         }
     }
 
@@ -2211,7 +2259,7 @@ public class Chembur_Showcard {
             if (isFBNative_Banner_Loaded) {
                 return;
             }
-            final NativeBannerAd fb_nativeBanner = new NativeBannerAd(activity, dataresponsearray.get(0).getFbNativeBannerId());
+            final NativeBannerAd fb_nativeBanner = new NativeBannerAd(activity, getAdsID(dataresponsearray.get(0).getFbNativeBannerId(), current_facebook_smallnativeid, 15));
             NativeAdListener nativeAdListener = new NativeAdListener() {
                 @Override
                 public void onMediaDownloaded(Ad ad) {
@@ -2226,7 +2274,7 @@ public class Chembur_Showcard {
                     if (isadx_small_native_Loaded) {
                         return;
                     }
-                    final AdLoader.Builder builder = new AdLoader.Builder(activity, dataresponsearray.get(0).getAdxNativeId());
+                    final AdLoader.Builder builder = new AdLoader.Builder(activity, getAdsID(dataresponsearray.get(0).getAdxNativeId(), current_adx_smallnativeid, 14));
                     builder.forNativeAd(nativeAd -> {
                         Adx_small_native_Ad.add(nativeAd);
                         isadx_small_native_Loaded = true;
@@ -2268,6 +2316,7 @@ public class Chembur_Showcard {
             };
             // Request an ad
             fb_nativeBanner.loadAd(fb_nativeBanner.buildLoadAdConfig().withAdListener(nativeAdListener).build());
+            switchmode(Constnt.smallnativemode);
         }
     }
 
@@ -2307,7 +2356,7 @@ public class Chembur_Showcard {
             if (isadmob_native_Loaded) {
                 return;
             }
-            final AdLoader.Builder builder = new AdLoader.Builder(activity, dataresponsearray.get(0).getAdmobNativeid());
+            final AdLoader.Builder builder = new AdLoader.Builder(activity, getAdsID(dataresponsearray.get(0).getAdmobNativeid(), current_admob_nativeid, 1));
             builder.forNativeAd(nativeAd -> {
                 if (Admob_native_Ad.size() > 0) {
                     Admob_native_Ad.clear();
@@ -2328,7 +2377,7 @@ public class Chembur_Showcard {
                     if (isadx_native_Loaded) {
                         return;
                     }
-                    final AdLoader.Builder builder = new AdLoader.Builder(activity, dataresponsearray.get(0).getAdxNativeId());
+                    final AdLoader.Builder builder = new AdLoader.Builder(activity, getAdsID(dataresponsearray.get(0).getAdxNativeId(), current_adx_nativeid, 2));
                     builder.forNativeAd(nativeAd -> {
                         if (Adx_native_Ad.size() > 0) {
                             Adx_native_Ad.clear();
@@ -2350,7 +2399,7 @@ public class Chembur_Showcard {
                             if (isFBNativeLoaded) {
                                 return;
                             }
-                            final com.facebook.ads.NativeAd fbnative_Ad = new com.facebook.ads.NativeAd(activity, dataresponsearray.get(0).getFbNativeId());
+                            final com.facebook.ads.NativeAd fbnative_Ad = new com.facebook.ads.NativeAd(activity, getAdsID(dataresponsearray.get(0).getFbNativeId(), current_facebook_nativeid, 3));
                             NativeAdListener nativeAdListener = new NativeAdListener() {
                                 @Override
                                 public void onMediaDownloaded(Ad ad) {
@@ -2403,6 +2452,8 @@ public class Chembur_Showcard {
                     super.onAdLoaded();
                 }
             }).build().loadAd(new AdRequest.Builder().build());
+            switchmode(Constnt.nativemode);
+
         }
     }
 
@@ -2414,7 +2465,7 @@ public class Chembur_Showcard {
             if (isadx_native_Loaded) {
                 return;
             }
-            final AdLoader.Builder builder = new AdLoader.Builder(activity, dataresponsearray.get(0).getAdxNativeId());
+            final AdLoader.Builder builder = new AdLoader.Builder(activity, getAdsID(dataresponsearray.get(0).getAdxNativeId(), current_adx_nativeid, 2));
             builder.forNativeAd(nativeAd -> {
                 if (Adx_native_Ad.size() > 0) {
                     Adx_native_Ad.clear();
@@ -2435,7 +2486,7 @@ public class Chembur_Showcard {
                     if (isadmob_native_Loaded) {
                         return;
                     }
-                    final AdLoader.Builder builder = new AdLoader.Builder(activity, dataresponsearray.get(0).getAdmobNativeid());
+                    final AdLoader.Builder builder = new AdLoader.Builder(activity, getAdsID(dataresponsearray.get(0).getAdmobNativeid(), current_admob_nativeid, 1));
                     builder.forNativeAd(nativeAd -> {
                         if (Admob_native_Ad.size() > 0) {
                             Admob_native_Ad.clear();
@@ -2456,7 +2507,7 @@ public class Chembur_Showcard {
                             if (isFBNativeLoaded) {
                                 return;
                             }
-                            final com.facebook.ads.NativeAd fbnative_Ad = new com.facebook.ads.NativeAd(activity, dataresponsearray.get(0).getFbNativeId());
+                            final com.facebook.ads.NativeAd fbnative_Ad = new com.facebook.ads.NativeAd(activity, getAdsID(dataresponsearray.get(0).getFbNativeId(), current_facebook_nativeid, 3));
                             NativeAdListener nativeAdListener = new NativeAdListener() {
                                 @Override
                                 public void onMediaDownloaded(Ad ad) {
@@ -2510,6 +2561,7 @@ public class Chembur_Showcard {
                     super.onAdLoaded();
                 }
             }).build().loadAd(new AdRequest.Builder().build());
+            switchmode(Constnt.nativemode);
         }
     }
 
@@ -2520,7 +2572,7 @@ public class Chembur_Showcard {
             if (isFBNativeLoaded) {
                 return;
             }
-            final com.facebook.ads.NativeAd fbnative_Ad = new com.facebook.ads.NativeAd(activity, dataresponsearray.get(0).getFbNativeId());
+            final com.facebook.ads.NativeAd fbnative_Ad = new com.facebook.ads.NativeAd(activity, getAdsID(dataresponsearray.get(0).getFbNativeId(), current_facebook_nativeid, 3));
             NativeAdListener nativeAdListener = new NativeAdListener() {
                 @Override
                 public void onMediaDownloaded(Ad ad) {
@@ -2536,7 +2588,7 @@ public class Chembur_Showcard {
                     if (isadmob_native_Loaded) {
                         return;
                     }
-                    AdLoader.Builder builder = new AdLoader.Builder(activity, dataresponsearray.get(0).getAdmobNativeid());
+                    AdLoader.Builder builder = new AdLoader.Builder(activity, getAdsID(dataresponsearray.get(0).getAdmobNativeid(), current_admob_nativeid, 1));
                     builder.forNativeAd(nativeAd -> {
                         if (Admob_native_Ad.size() > 0) {
                             Admob_native_Ad.clear();
@@ -2557,7 +2609,7 @@ public class Chembur_Showcard {
                             if (isadx_native_Loaded) {
                                 return;
                             }
-                            AdLoader.Builder builder = new AdLoader.Builder(activity, dataresponsearray.get(0).getAdxNativeId());
+                            AdLoader.Builder builder = new AdLoader.Builder(activity, getAdsID(dataresponsearray.get(0).getAdxNativeId(), current_adx_nativeid, 2));
                             builder.forNativeAd(nativeAd -> {
                                 if (Adx_native_Ad.size() > 0) {
                                     Adx_native_Ad.clear();
@@ -2616,6 +2668,8 @@ public class Chembur_Showcard {
             // Request an ad
 //            fbnative_Ad.loadAd(fbnative_Ad.buildLoadAdConfig().withAdListener(nativeAdListener).build());
             fbnative_Ad.loadAd(fbnative_Ad.buildLoadAdConfig().withAdListener(nativeAdListener).withMediaCacheFlag(NativeAdBase.MediaCacheFlag.ALL).build());
+            switchmode(Constnt.nativemode);
+
         }
     }
 
@@ -2625,7 +2679,7 @@ public class Chembur_Showcard {
             if (isadmob_native_Loaded) {
                 return;
             }
-            final AdLoader.Builder builder = new AdLoader.Builder(activity, dataresponsearray.get(0).getAdmobNativeid());
+            final AdLoader.Builder builder = new AdLoader.Builder(activity, getAdsID(dataresponsearray.get(0).getAdmobNativeid(), current_admob_nativeid, 1));
             builder.forNativeAd(nativeAd -> {
                 if (Admob_native_Ad.size() > 0) {
                     Admob_native_Ad.clear();
@@ -2646,7 +2700,7 @@ public class Chembur_Showcard {
                     if (isadx_native_Loaded) {
                         return;
                     }
-                    final AdLoader.Builder builder = new AdLoader.Builder(activity, dataresponsearray.get(0).getAdxNativeId());
+                    final AdLoader.Builder builder = new AdLoader.Builder(activity, getAdsID(dataresponsearray.get(0).getAdxNativeId(), current_adx_nativeid, 2));
                     builder.forNativeAd(nativeAd -> {
                         Log.d("MyAppDataResponse", "Adx Native Ad Loaded");
                         if (Adx_native_Ad.size() > 0) {
@@ -2677,6 +2731,7 @@ public class Chembur_Showcard {
                     super.onAdLoaded();
                 }
             }).build().loadAd(new AdRequest.Builder().build());
+            switchmode(Constnt.nativemode);
         }
     }
 
@@ -2686,7 +2741,7 @@ public class Chembur_Showcard {
             if (isadmob_native_Loaded) {
                 return;
             }
-            final AdLoader.Builder builder = new AdLoader.Builder(activity, dataresponsearray.get(0).getAdmobNativeid());
+            final AdLoader.Builder builder = new AdLoader.Builder(activity, getAdsID(dataresponsearray.get(0).getAdmobNativeid(), current_admob_nativeid, 1));
             builder.forNativeAd(nativeAd -> {
                 Log.d("MyAppDataResponse", "Admob Native Ad Loaded");
                 if (Admob_native_Ad.size() > 0) {
@@ -2707,7 +2762,7 @@ public class Chembur_Showcard {
                     if (isFBNativeLoaded) {
                         return;
                     }
-                    final com.facebook.ads.NativeAd fbnative_Ad = new com.facebook.ads.NativeAd(activity, dataresponsearray.get(0).getFbNativeId());
+                    final com.facebook.ads.NativeAd fbnative_Ad = new com.facebook.ads.NativeAd(activity, getAdsID(dataresponsearray.get(0).getFbNativeId(), current_facebook_nativeid, 3));
                     NativeAdListener nativeAdListener = new NativeAdListener() {
                         @Override
                         public void onMediaDownloaded(Ad ad) {
@@ -2753,6 +2808,7 @@ public class Chembur_Showcard {
                     super.onAdLoaded();
                 }
             }).build().loadAd(new AdRequest.Builder().build());
+            switchmode(Constnt.nativemode);
         }
     }
 
@@ -2763,7 +2819,7 @@ public class Chembur_Showcard {
             if (isadx_native_Loaded) {
                 return;
             }
-            final AdLoader.Builder builder = new AdLoader.Builder(activity, dataresponsearray.get(0).getAdxNativeId());
+            final AdLoader.Builder builder = new AdLoader.Builder(activity, getAdsID(dataresponsearray.get(0).getAdxNativeId(), current_adx_nativeid, 2));
             builder.forNativeAd(nativeAd -> {
                 Log.d("MyAppDataResponse", "Adx Native Ad Loaded");
                 if (Adx_native_Ad.size() > 0) {
@@ -2785,7 +2841,7 @@ public class Chembur_Showcard {
                     if (isadmob_native_Loaded) {
                         return;
                     }
-                    final AdLoader.Builder builder = new AdLoader.Builder(activity, dataresponsearray.get(0).getAdmobNativeid());
+                    final AdLoader.Builder builder = new AdLoader.Builder(activity, getAdsID(dataresponsearray.get(0).getAdmobNativeid(), current_admob_nativeid, 1));
                     builder.forNativeAd(nativeAd -> {
                         if (Admob_native_Ad.size() > 0) {
                             Admob_native_Ad.clear();
@@ -2815,6 +2871,7 @@ public class Chembur_Showcard {
                     super.onAdLoaded();
                 }
             }).build().loadAd(new AdRequest.Builder().build());
+            switchmode(Constnt.nativemode);
         }
     }
 
@@ -2824,7 +2881,7 @@ public class Chembur_Showcard {
             if (isadx_native_Loaded) {
                 return;
             }
-            final AdLoader.Builder builder = new AdLoader.Builder(activity, dataresponsearray.get(0).getAdxNativeId());
+            final AdLoader.Builder builder = new AdLoader.Builder(activity, getAdsID(dataresponsearray.get(0).getAdxNativeId(), current_adx_nativeid, 2));
             builder.forNativeAd(nativeAd -> {
                 Log.d("MyAppDataResponse", "Adx Native Ad Loaded");
                 if (Adx_native_Ad.size() > 0) {
@@ -2846,7 +2903,7 @@ public class Chembur_Showcard {
                     if (isFBNativeLoaded) {
                         return;
                     }
-                    final com.facebook.ads.NativeAd fbnative_Ad = new com.facebook.ads.NativeAd(activity, dataresponsearray.get(0).getFbNativeId());
+                    final com.facebook.ads.NativeAd fbnative_Ad = new com.facebook.ads.NativeAd(activity, getAdsID(dataresponsearray.get(0).getFbNativeId(), current_facebook_nativeid, 3));
                     NativeAdListener nativeAdListener = new NativeAdListener() {
                         @Override
                         public void onMediaDownloaded(Ad ad) {
@@ -2892,6 +2949,7 @@ public class Chembur_Showcard {
                     super.onAdLoaded();
                 }
             }).build().loadAd(new AdRequest.Builder().build());
+            switchmode(Constnt.nativemode);
         }
     }
 
@@ -2901,7 +2959,7 @@ public class Chembur_Showcard {
             if (isFBNativeLoaded) {
                 return;
             }
-            final com.facebook.ads.NativeAd fbnative_Ad = new com.facebook.ads.NativeAd(activity, dataresponsearray.get(0).getFbNativeId());
+            final com.facebook.ads.NativeAd fbnative_Ad = new com.facebook.ads.NativeAd(activity, getAdsID(dataresponsearray.get(0).getFbNativeId(), current_facebook_nativeid, 3));
             NativeAdListener nativeAdListener = new NativeAdListener() {
                 @Override
                 public void onMediaDownloaded(Ad ad) {
@@ -2916,7 +2974,7 @@ public class Chembur_Showcard {
                     if (isadmob_native_Loaded) {
                         return;
                     }
-                    final AdLoader.Builder builder = new AdLoader.Builder(activity, dataresponsearray.get(0).getAdmobNativeid());
+                    final AdLoader.Builder builder = new AdLoader.Builder(activity, getAdsID(dataresponsearray.get(0).getAdmobNativeid(), current_admob_nativeid, 1));
                     builder.forNativeAd(nativeAd -> {
                         if (Admob_native_Ad.size() > 0) {
                             Admob_native_Ad.clear();
@@ -2968,6 +3026,7 @@ public class Chembur_Showcard {
             // Request an ad
 //            fbnative_Ad.loadAd(fbnative_Ad.buildLoadAdConfig().withAdListener(nativeAdListener).build());
             fbnative_Ad.loadAd(fbnative_Ad.buildLoadAdConfig().withAdListener(nativeAdListener).withMediaCacheFlag(NativeAdBase.MediaCacheFlag.ALL).build());
+            switchmode(Constnt.nativemode);
         }
     }
 
@@ -2977,7 +3036,7 @@ public class Chembur_Showcard {
             if (isFBNativeLoaded) {
                 return;
             }
-            final com.facebook.ads.NativeAd fbnative_Ad = new com.facebook.ads.NativeAd(activity, dataresponsearray.get(0).getFbNativeId());
+            final com.facebook.ads.NativeAd fbnative_Ad = new com.facebook.ads.NativeAd(activity, getAdsID(dataresponsearray.get(0).getFbNativeId(), current_facebook_nativeid, 3));
             NativeAdListener nativeAdListener = new NativeAdListener() {
                 @Override
                 public void onMediaDownloaded(Ad ad) {
@@ -2992,7 +3051,7 @@ public class Chembur_Showcard {
                     if (isadx_native_Loaded) {
                         return;
                     }
-                    final AdLoader.Builder builder = new AdLoader.Builder(activity, dataresponsearray.get(0).getAdxNativeId());
+                    final AdLoader.Builder builder = new AdLoader.Builder(activity, getAdsID(dataresponsearray.get(0).getAdxNativeId(), current_adx_nativeid, 2));
                     builder.forNativeAd(nativeAd -> {
                         Log.d("MyAppDataResponse", "Adx Native Ad Loaded");
                         if (Adx_native_Ad.size() > 0) {
@@ -3045,6 +3104,7 @@ public class Chembur_Showcard {
             // Request an ad
 //            fbnative_Ad.loadAd(fbnative_Ad.buildLoadAdConfig().withAdListener(nativeAdListener).build());
             fbnative_Ad.loadAd(fbnative_Ad.buildLoadAdConfig().withAdListener(nativeAdListener).withMediaCacheFlag(NativeAdBase.MediaCacheFlag.ALL).build());
+            switchmode(Constnt.nativemode);
         }
     }
 
@@ -3167,7 +3227,7 @@ public class Chembur_Showcard {
             if (isGoogleInterLoaded) {
                 return;
             }
-            String placementId = dataresponsearray.get(0).getAdmobInterid();
+            String placementId = getAdsID(dataresponsearray.get(0).getAdmobInterid(), current_admob_interid, 4);
             final AdRequest adRequest = new AdRequest.Builder().build();
             InterstitialAd.load(activity, placementId, adRequest, new InterstitialAdLoadCallback() {
                 @Override
@@ -3216,7 +3276,7 @@ public class Chembur_Showcard {
                     if (isAdxInterLoaded) {
                         return;
                     }
-                    String placementId = dataresponsearray.get(0).getAdxInterId();
+                    String placementId = getAdsID(dataresponsearray.get(0).getAdxInterId(), current_adx_interid, 5);
                     @SuppressLint("VisibleForTests") final AdManagerAdRequest adRequest = new AdManagerAdRequest.Builder().build();
                     AdManagerInterstitialAd.load(activity, placementId, adRequest, new AdManagerInterstitialAdLoadCallback() {
                         @Override
@@ -3264,7 +3324,7 @@ public class Chembur_Showcard {
                             if (isFBInterLoaded) {
                                 return;
                             }
-                            final com.facebook.ads.InterstitialAd FB_interstitial = new com.facebook.ads.InterstitialAd(activity, dataresponsearray.get(0).getFbInterId());
+                            final com.facebook.ads.InterstitialAd FB_interstitial = new com.facebook.ads.InterstitialAd(activity, getAdsID(dataresponsearray.get(0).getFbInterId(), current_facebook_interid, 6));
                             InterstitialAdListener interstitialAdListener = new InterstitialAdListener() {
                                 @Override
                                 public void onInterstitialDisplayed(Ad ad) {
@@ -3322,6 +3382,7 @@ public class Chembur_Showcard {
                     });
                 }
             });
+            switchmode(Constnt.intermode);
         }
     }
 
@@ -3332,7 +3393,7 @@ public class Chembur_Showcard {
             if (isAdxInterLoaded) {
                 return;
             }
-            String placementId = dataresponsearray.get(0).getAdxInterId();
+            String placementId = getAdsID(dataresponsearray.get(0).getAdxInterId(), current_adx_interid, 5);
             final AdManagerAdRequest adRequest = new AdManagerAdRequest.Builder().build();
             AdManagerInterstitialAd.load(activity, placementId, adRequest, new AdManagerInterstitialAdLoadCallback() {
                 @Override
@@ -3380,7 +3441,7 @@ public class Chembur_Showcard {
                     if (isGoogleInterLoaded) {
                         return;
                     }
-                    String placementId = dataresponsearray.get(0).getAdmobInterid();
+                    String placementId = getAdsID(dataresponsearray.get(0).getAdmobInterid(), current_admob_interid, 4);
                     AdRequest adRequest = new AdRequest.Builder().build();
                     InterstitialAd.load(activity, placementId, adRequest, new InterstitialAdLoadCallback() {
                         @Override
@@ -3428,7 +3489,7 @@ public class Chembur_Showcard {
                             if (isFBInterLoaded) {
                                 return;
                             }
-                            final com.facebook.ads.InterstitialAd FB_interstitial = new com.facebook.ads.InterstitialAd(activity, dataresponsearray.get(0).getFbInterId());
+                            final com.facebook.ads.InterstitialAd FB_interstitial = new com.facebook.ads.InterstitialAd(activity, getAdsID(dataresponsearray.get(0).getFbInterId(), current_facebook_interid, 6));
                             InterstitialAdListener interstitialAdListener = new InterstitialAdListener() {
                                 @Override
                                 public void onInterstitialDisplayed(Ad ad) {
@@ -3483,6 +3544,7 @@ public class Chembur_Showcard {
                     });
                 }
             });
+            switchmode(Constnt.intermode);
         }
     }
 
@@ -3493,7 +3555,7 @@ public class Chembur_Showcard {
             if (isFBInterLoaded) {
                 return;
             }
-            final com.facebook.ads.InterstitialAd FB_interstitial = new com.facebook.ads.InterstitialAd(activity, dataresponsearray.get(0).getFbInterId());
+            final com.facebook.ads.InterstitialAd FB_interstitial = new com.facebook.ads.InterstitialAd(activity, getAdsID(dataresponsearray.get(0).getFbInterId(), current_facebook_interid, 6));
             InterstitialAdListener interstitialAdListener = new InterstitialAdListener() {
                 @Override
                 public void onInterstitialDisplayed(Ad ad) {
@@ -3516,7 +3578,7 @@ public class Chembur_Showcard {
                     if (isGoogleInterLoaded) {
                         return;
                     }
-                    String placementId = dataresponsearray.get(0).getAdmobInterid();
+                    String placementId = getAdsID(dataresponsearray.get(0).getAdmobInterid(), current_admob_interid, 4);
                     final AdRequest adRequest = new AdRequest.Builder().build();
                     InterstitialAd.load(activity, placementId, adRequest, new InterstitialAdLoadCallback() {
                         @Override
@@ -3564,7 +3626,7 @@ public class Chembur_Showcard {
                             if (isAdxInterLoaded) {
                                 return;
                             }
-                            String placementId = dataresponsearray.get(0).getAdxInterId();
+                            String placementId = getAdsID(dataresponsearray.get(0).getAdxInterId(), current_adx_interid, 5);
                             AdManagerAdRequest adRequest = new AdManagerAdRequest.Builder().build();
                             AdManagerInterstitialAd.load(activity, placementId, adRequest, new AdManagerInterstitialAdLoadCallback() {
                                 @Override
@@ -3632,6 +3694,7 @@ public class Chembur_Showcard {
                 }
             };
             FB_interstitial.loadAd(FB_interstitial.buildLoadAdConfig().withAdListener(interstitialAdListener).build());
+            switchmode(Constnt.intermode);
         }
     }
 
@@ -3641,7 +3704,7 @@ public class Chembur_Showcard {
             if (isGoogleInterLoaded) {
                 return;
             }
-            String placementId = dataresponsearray.get(0).getAdmobInterid();
+            String placementId = getAdsID(dataresponsearray.get(0).getAdmobInterid(), current_admob_interid, 4);
             final AdRequest adRequest = new AdRequest.Builder().build();
             InterstitialAd.load(activity, placementId, adRequest, new InterstitialAdLoadCallback() {
                 @Override
@@ -3689,7 +3752,7 @@ public class Chembur_Showcard {
                     if (isAdxInterLoaded) {
                         return;
                     }
-                    String placementId = dataresponsearray.get(0).getAdxInterId();
+                    String placementId = getAdsID(dataresponsearray.get(0).getAdxInterId(), current_adx_interid, 5);
                     @SuppressLint("VisibleForTests") final AdManagerAdRequest adRequest = new AdManagerAdRequest.Builder().build();
                     AdManagerInterstitialAd.load(activity, placementId, adRequest, new AdManagerInterstitialAdLoadCallback() {
                         @Override
@@ -3738,6 +3801,7 @@ public class Chembur_Showcard {
                     });
                 }
             });
+            switchmode(Constnt.intermode);
         }
     }
 
@@ -3747,7 +3811,7 @@ public class Chembur_Showcard {
             if (isGoogleInterLoaded) {
                 return;
             }
-            String placementId = dataresponsearray.get(0).getAdmobInterid();
+            String placementId = getAdsID(dataresponsearray.get(0).getAdmobInterid(), current_admob_interid, 4);
             final AdRequest adRequest = new AdRequest.Builder().build();
             InterstitialAd.load(activity, placementId, adRequest, new InterstitialAdLoadCallback() {
                 @Override
@@ -3795,7 +3859,7 @@ public class Chembur_Showcard {
                     if (isFBInterLoaded) {
                         return;
                     }
-                    final com.facebook.ads.InterstitialAd FB_interstitial = new com.facebook.ads.InterstitialAd(activity, dataresponsearray.get(0).getFbInterId());
+                    final com.facebook.ads.InterstitialAd FB_interstitial = new com.facebook.ads.InterstitialAd(activity, getAdsID(dataresponsearray.get(0).getFbInterId(), current_facebook_interid, 6));
                     InterstitialAdListener interstitialAdListener = new InterstitialAdListener() {
                         @Override
                         public void onInterstitialDisplayed(Ad ad) {
@@ -3849,6 +3913,7 @@ public class Chembur_Showcard {
                     FB_interstitial.loadAd(FB_interstitial.buildLoadAdConfig().withAdListener(interstitialAdListener).build());
                 }
             });
+            switchmode(Constnt.intermode);
         }
     }
 
@@ -3858,7 +3923,7 @@ public class Chembur_Showcard {
             if (isAdxInterLoaded) {
                 return;
             }
-            String placementId = dataresponsearray.get(0).getAdxInterId();
+            String placementId = getAdsID(dataresponsearray.get(0).getAdxInterId(), current_adx_interid, 5);
             @SuppressLint("VisibleForTests") final AdManagerAdRequest adRequest = new AdManagerAdRequest.Builder().build();
             AdManagerInterstitialAd.load(activity, placementId, adRequest, new AdManagerInterstitialAdLoadCallback() {
                 @Override
@@ -3906,7 +3971,7 @@ public class Chembur_Showcard {
                     if (isGoogleInterLoaded) {
                         return;
                     }
-                    String placementId = dataresponsearray.get(0).getAdmobInterid();
+                    String placementId = getAdsID(dataresponsearray.get(0).getAdmobInterid(), current_admob_interid, 4);
                     final AdRequest adRequest = new AdRequest.Builder().build();
                     InterstitialAd.load(activity, placementId, adRequest, new InterstitialAdLoadCallback() {
                         @Override
@@ -3955,6 +4020,7 @@ public class Chembur_Showcard {
                     });
                 }
             });
+            switchmode(Constnt.intermode);
         }
     }
 
@@ -3964,7 +4030,7 @@ public class Chembur_Showcard {
             if (isAdxInterLoaded) {
                 return;
             }
-            String placementId = dataresponsearray.get(0).getAdxInterId();
+            String placementId = getAdsID(dataresponsearray.get(0).getAdxInterId(), current_adx_interid, 5);
             @SuppressLint("VisibleForTests") final AdManagerAdRequest adRequest = new AdManagerAdRequest.Builder().build();
             AdManagerInterstitialAd.load(activity, placementId, adRequest, new AdManagerInterstitialAdLoadCallback() {
                 @Override
@@ -4012,7 +4078,7 @@ public class Chembur_Showcard {
                     if (isFBInterLoaded) {
                         return;
                     }
-                    final com.facebook.ads.InterstitialAd FB_interstitial = new com.facebook.ads.InterstitialAd(activity, dataresponsearray.get(0).getFbInterId());
+                    final com.facebook.ads.InterstitialAd FB_interstitial = new com.facebook.ads.InterstitialAd(activity, getAdsID(dataresponsearray.get(0).getFbInterId(), current_facebook_interid, 6));
                     InterstitialAdListener interstitialAdListener = new InterstitialAdListener() {
                         @Override
                         public void onInterstitialDisplayed(Ad ad) {
@@ -4066,6 +4132,7 @@ public class Chembur_Showcard {
                     FB_interstitial.loadAd(FB_interstitial.buildLoadAdConfig().withAdListener(interstitialAdListener).build());
                 }
             });
+            switchmode(Constnt.intermode);
         }
     }
 
@@ -4075,7 +4142,7 @@ public class Chembur_Showcard {
             if (isFBInterLoaded) {
                 return;
             }
-            final com.facebook.ads.InterstitialAd FB_interstitial = new com.facebook.ads.InterstitialAd(activity, dataresponsearray.get(0).getFbInterId());
+            final com.facebook.ads.InterstitialAd FB_interstitial = new com.facebook.ads.InterstitialAd(activity, getAdsID(dataresponsearray.get(0).getFbInterId(), current_facebook_interid, 6));
             InterstitialAdListener interstitialAdListener = new InterstitialAdListener() {
                 @Override
                 public void onInterstitialDisplayed(Ad ad) {
@@ -4110,7 +4177,7 @@ public class Chembur_Showcard {
                     if (isGoogleInterLoaded) {
                         return;
                     }
-                    String placementId = dataresponsearray.get(0).getAdmobInterid();
+                    String placementId = getAdsID(dataresponsearray.get(0).getAdmobInterid(), current_admob_interid, 4);
                     final AdRequest adRequest = new AdRequest.Builder().build();
                     InterstitialAd.load(activity, placementId, adRequest, new InterstitialAdLoadCallback() {
                         @Override
@@ -4177,6 +4244,7 @@ public class Chembur_Showcard {
                 }
             };
             FB_interstitial.loadAd(FB_interstitial.buildLoadAdConfig().withAdListener(interstitialAdListener).build());
+            switchmode(Constnt.intermode);
         }
     }
 
@@ -4186,7 +4254,7 @@ public class Chembur_Showcard {
             if (isFBInterLoaded) {
                 return;
             }
-            final com.facebook.ads.InterstitialAd FB_interstitial = new com.facebook.ads.InterstitialAd(activity, dataresponsearray.get(0).getFbInterId());
+            final com.facebook.ads.InterstitialAd FB_interstitial = new com.facebook.ads.InterstitialAd(activity, getAdsID(dataresponsearray.get(0).getFbInterId(), current_facebook_interid, 6));
             InterstitialAdListener interstitialAdListener = new InterstitialAdListener() {
                 @Override
                 public void onInterstitialDisplayed(Ad ad) {
@@ -4221,7 +4289,7 @@ public class Chembur_Showcard {
                     if (isAdxInterLoaded) {
                         return;
                     }
-                    String placementId = dataresponsearray.get(0).getAdxInterId();
+                    String placementId = getAdsID(dataresponsearray.get(0).getAdxInterId(), current_adx_interid, 5);
                     @SuppressLint("VisibleForTests") final AdManagerAdRequest adRequest = new AdManagerAdRequest.Builder().build();
                     AdManagerInterstitialAd.load(activity, placementId, adRequest, new AdManagerInterstitialAdLoadCallback() {
                         @Override
@@ -4288,6 +4356,7 @@ public class Chembur_Showcard {
                 }
             };
             FB_interstitial.loadAd(FB_interstitial.buildLoadAdConfig().withAdListener(interstitialAdListener).build());
+            switchmode(Constnt.intermode);
         }
     }
 
@@ -6759,5 +6828,92 @@ public class Chembur_Showcard {
 
     }
 
+    public String getAdsID(String adsid, int currentmode, int mode) {
+        String[] adsModearray = adsid.split(",");
+        if (currentmode == adsModearray.length || currentmode > adsModearray.length) {
+            currentmode = 0;
+            switch (mode) {
+                case 1:
+                    current_admob_nativeid = 0;
+                    break;
+                case 2:
+                    current_adx_nativeid = 0;
+                    break;
+                case 3:
+                    current_facebook_nativeid = 0;
+                    break;
+                case 4:
+                    current_admob_interid = 0;
+                    break;
+                case 5:
+                    current_adx_interid = 0;
+                    break;
+                case 6:
+                    current_facebook_interid = 0;
+                    break;
+                case 7:
+                    current_admob_bannerid = 0;
+                    break;
+                case 8:
+                    current_adx_bannerid = 0;
+                    break;
+                case 9:
+                    current_facebook_bannerid = 0;
+                    break;
+                case 10:
+                    current_admob_nativebannerid = 0;
+                    break;
+                case 11:
+                    current_adx_nativebannerid = 0;
+                    break;
+                case 12:
+                    current_facebook_nativebannerid = 0;
+                    break;
+                case 13:
+                    current_admob_smallnativeid = 0;
+                    break;
+                case 14:
+                    current_adx_smallnativeid = 0;
+                    break;
+                case 15:
+                    current_facebook_smallnativeid = 0;
+                    break;
+            }
+
+        }
+
+        return adsModearray[currentmode];
+    }
+
+    public void switchmode(String mode) {
+        switch (mode) {
+            case "native":
+                current_admob_nativeid++;
+                current_adx_nativeid++;
+                current_facebook_nativeid++;
+                break;
+            case "inter":
+                current_admob_interid++;
+                current_adx_interid++;
+                current_facebook_interid++;
+                break;
+            case "banner":
+                current_admob_bannerid++;
+                current_adx_bannerid++;
+                current_facebook_bannerid++;
+                break;
+            case "nativebanner":
+                current_admob_nativebannerid++;
+                current_adx_nativebannerid++;
+                current_facebook_nativebannerid++;
+                break;
+            case "small_native":
+                current_admob_smallnativeid++;
+                current_adx_smallnativeid++;
+                current_facebook_smallnativeid++;
+                break;
+
+        }
+    }
 
 }

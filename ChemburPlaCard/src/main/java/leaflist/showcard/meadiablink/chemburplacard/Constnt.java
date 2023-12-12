@@ -41,4 +41,12 @@ public class Constnt {
     public static boolean isadx_appopen_Loaded;
 
     public static String appdatacard="appdatacard";
+
+    public static String nativemode = "native";
+    public static String intermode = "inter";
+    public static String bannermode = "banner";
+    public static String nativebannermode = "nativebanner";
+    public static String smallnativemode = "small_native";
+
+
 }

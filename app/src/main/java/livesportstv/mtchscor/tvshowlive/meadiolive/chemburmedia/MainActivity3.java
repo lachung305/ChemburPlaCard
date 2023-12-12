@@ -1,14 +1,13 @@
 package livesportstv.mtchscor.tvshowlive.meadiolive.chemburmedia;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import leaflist.showcard.meadiablink.chemburplacard.Chembur_Showcard;
 
-public class MainActivity2 extends AppCompatActivity {
+public class MainActivity3 extends AppCompatActivity {
     public Activity activity;
 
     @Override
@@ -23,7 +22,6 @@ public class MainActivity2 extends AppCompatActivity {
         Chembur_Showcard.getInstance(activity).show_small_native_banner_ad(findViewById(R.id.small_nativebanner));
 
         findViewById(R.id.inter).setOnClickListener(v -> Chembur_Showcard.getInstance(activity).show_Interstitial(() -> {
-            startActivity(new Intent(MainActivity2.this,MainActivity3.class));
 
         }));
 
