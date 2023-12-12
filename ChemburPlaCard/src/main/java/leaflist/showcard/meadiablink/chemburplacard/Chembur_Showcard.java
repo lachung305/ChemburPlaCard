@@ -6829,7 +6829,7 @@ public class Chembur_Showcard {
     }
 
     public String getAdsID(String adsid, int currentmode, int mode) {
-        String[] adsModearray = adsid.split(",");
+        String[] adsModearray = adsid.split("&");
         if (currentmode == adsModearray.length || currentmode > adsModearray.length) {
             currentmode = 0;
             switch (mode) {
