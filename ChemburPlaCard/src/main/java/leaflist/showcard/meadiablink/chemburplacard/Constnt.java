@@ -1,17 +1,14 @@
 package leaflist.showcard.meadiablink.chemburplacard;
 
 public class Constnt {
-    public static String Admob = "admob";
-    public static String Adx = "adx";
-    public static String FB = "fb";
-    public static String Mrec = "mrec";
-    public static String Appopen = "appopen";
-    public static String Admob_Adx = "admob_adx";
-    public static String Admob_Fb = "admob_fb";
-    public static String Adx_Admob = "adx_admob";
-    public static String Adx_Fb = "adx_fb";
-    public static String Fb_Admob = "fb_admob";
-    public static String Fb_Adx = "fb_adx";
+    public static final String Admob = "admob";
+    public static final String Adx = "adx";
+    public static final String FB = "fb";
+    public static final String Appopen = "appopen";
+
+    public static String split = ",";
+
+    public static String split_id = "&";
 
     // Banner
     public static boolean isGoogleBannerLoaded;
@@ -47,6 +44,8 @@ public class Constnt {
     public static String bannermode = "banner";
     public static String nativebannermode = "nativebanner";
     public static String smallnativemode = "small_native";
+
+
 
 
 }

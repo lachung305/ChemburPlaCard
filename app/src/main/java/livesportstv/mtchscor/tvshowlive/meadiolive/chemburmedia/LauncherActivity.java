@@ -30,7 +30,7 @@ public class LauncherActivity extends AppCompatActivity {
         AppDataResponse dataItem = new AppDataResponse();
         dataItem.setAdmobInterid("/6499/example/interstitial");
         dataItem.setAdmobBannerid("/6499/example/banner");
-        dataItem.setAdmobNativeid("/6499/example/native");
+        dataItem.setAdmobNativeid("ca-app-pub-3940256099942544/2247696110");
         dataItem.setAdNative("admob");
         dataItem.setAdSmallNativeBanner("admob");
         dataItem.setAdInter("admob");

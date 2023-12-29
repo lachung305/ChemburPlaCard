@@ -16,16 +16,15 @@
         <com.google.android.gms.ads.nativead.MediaView
             android:id="@+id/ad_media"
             android:layout_width="match_parent"
-            android:layout_height="170dp"
+            android:layout_height="140dp"
             android:gravity="center" />
 
         <RelativeLayout
             android:id="@+id/part1"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_below="@+id/ad_media"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="3dp">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:layout_below="@+id/ad_media">
 
             <ImageView
                 android:id="@+id/ad_app_icon"
@@ -38,7 +37,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/ad_app_icon">
 
                 <LinearLayout
@@ -47,7 +46,6 @@
                     android:layout_height="60dp"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="4dp"
-                    android:layout_toLeftOf="@+id/btn"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -99,37 +97,38 @@
                         tools:ignore="SmallSp" />
                 </LinearLayout>
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/btn"
-                    android:layout_width="110dp"
-                    android:layout_height="45dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    app:cardBackgroundColor="@color/appcolor"
-                    app:cardCornerRadius="5dp"
-                    app:cardElevation="5dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    tools:ignore="MissingConstraints">
-
-                    <TextView
-                        android:id="@+id/ad_call_to_action"
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:text="VISIT SITE"
-                        android:textAllCaps="true"
-                        android:textColor="@color/white"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        tools:ignore="SmallSp" />
-                </androidx.cardview.widget.CardView>
             </RelativeLayout>
         </RelativeLayout>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/btn"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            app:cardBackgroundColor="@color/appcolor"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="5dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_below="@id/part1"
+            tools:ignore="MissingConstraints">
+
+            <TextView
+                android:id="@+id/ad_call_to_action"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="VISIT SITE"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                tools:ignore="SmallSp" />
+        </androidx.cardview.widget.CardView>
 
         <LinearLayout
             android:id="@+id/ad_choices_container"
