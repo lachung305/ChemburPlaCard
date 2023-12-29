@@ -198,7 +198,7 @@ public class Chembur_Showcard {
             if (dataresponsearray.get(0).getAdInterBack() != null) {
                 loadinterback();
             }
-            callhandler(appDataback,3000L);
+            callhandler(appDataback, 2800L);
         }
     }
 
@@ -214,7 +214,7 @@ public class Chembur_Showcard {
         } else if (dataresponsearray.get(0).getAdAppopen().equalsIgnoreCase(Adx)) {
             get_adx_appopen_AdsLoad();
         }
-        callhandler(appDataback,2500L);
+        appDataback.OnCall();
     }
 
     public static ProgressDialog progressDialog;
