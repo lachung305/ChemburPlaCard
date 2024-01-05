@@ -10,6 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/ad_bg_maincolor"
         android:layout_margin="5dp">
 
         <com.facebook.ads.MediaView
@@ -71,7 +72,7 @@
                     android:ellipsize="end"
                     android:lines="1"
                     android:text="Test Name"
-                    android:textColor="@color/black"
+                    android:textColor="@color/ad_txtcolor"
                     android:textSize="15sp" />
 
                 <TextView
@@ -82,7 +83,7 @@
                     android:ellipsize="end"
                     android:lines="1"
                     android:text="Body name"
-                    android:textColor="@color/black"
+                    android:textColor="@color/ad_txtcolor"
                     android:textSize="12sp" />
 
                 <TextView
@@ -93,7 +94,7 @@
                     android:ellipsize="end"
                     android:lines="1"
                     android:text="Social Text"
-                    android:textColor="@color/black"
+                    android:textColor="@color/ad_txtcolor"
                     android:textSize="12sp" />
             </RelativeLayout>
         </RelativeLayout>
@@ -118,7 +119,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="Install"
-                android:textColor="@color/white"
+                android:textColor="@color/ad_btn_textcolor"
                 android:textSize="12sp"
                 android:textStyle="bold" />
         </androidx.cardview.widget.CardView>

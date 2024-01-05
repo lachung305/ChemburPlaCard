@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="110dp"
         android:layout_margin="5dp"
-        android:background="?attr/selectableItemBackground">
+        android:background="@color/ad_bg_maincolor">
         <TextView
             android:id="@+id/native_ad_sponsored_label"
             android:layout_width="wrap_content"
@@ -47,7 +47,7 @@
                 android:lines="1"
                 android:textSize="12sp"
                 android:text="Advertisement"
-                android:textColor="@color/black" />
+                android:textColor="@color/ad_txtcolor" />
 
             <TextView
                 android:id="@+id/native_ad_body"
@@ -58,7 +58,7 @@
                 android:ellipsize="end"
                 android:lines="3"
                 android:text="Provided by"
-                android:textColor="@color/black"
+                android:textColor="@color/ad_txtcolor"
                 android:textSize="10sp" />
         </LinearLayout>
 
@@ -80,7 +80,7 @@
                 android:ellipsize="end"
                 android:lines="1"
                 android:text="Social Text"
-                android:textColor="@color/black"
+                android:textColor="@color/ad_txtcolor"
                 android:textSize="10sp" />
         </LinearLayout>
 
@@ -105,7 +105,7 @@
                 android:gravity="center"
                 android:text="VISIT SITE"
                 android:textAllCaps="true"
-                android:textColor="@color/white"
+                android:textColor="@color/ad_btn_textcolor"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 tools:ignore="SmallSp" />

@@ -3,10 +3,10 @@
 
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
     <color name="appcolor">#3D3D33</color>
     <color name="ad_txtcolor">@color/black</color>
-    <color name="ad_btn_textcolor">@color/black</color>
-    <color name="ad_btn_bgcolor">@color/black</color>
+    <color name="ad_btn_textcolor">@color/white</color>
     <color name="ad_bg_maincolor">@color/white</color>
 
 </resources>

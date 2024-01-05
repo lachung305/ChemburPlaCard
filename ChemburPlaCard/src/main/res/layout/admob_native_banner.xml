@@ -11,6 +11,7 @@
         android:id="@+id/background"
         android:layout_width="match_parent"
         android:layout_height="120dp"
+        android:background="@color/ad_bg_maincolor"
         android:layout_margin="5dp">
 
         <com.google.android.gms.ads.nativead.MediaView
@@ -104,7 +105,7 @@
                 android:gravity="center"
                 android:text="VISIT SITE"
                 android:textAllCaps="true"
-                android:textColor="@color/white"
+                android:textColor="@color/ad_btn_textcolor"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 tools:ignore="SmallSp" />
