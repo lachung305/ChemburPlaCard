@@ -224,6 +224,7 @@ public class Chembur_Showcard {
         progressDialog.setMessage("Please Wait Loading data");
         progressDialog.setProgressStyle(0);
         progressDialog.setIndeterminate(true);
+        progressDialog.setCancelable(false);
         progressDialog.setProgress(0);
         progressDialog.show();
         try {

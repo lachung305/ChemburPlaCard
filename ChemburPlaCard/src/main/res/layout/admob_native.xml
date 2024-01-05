@@ -124,7 +124,7 @@
                 android:paddingRight="10dp"
                 android:text="VISIT SITE"
                 android:textAllCaps="true"
-                android:textColor="@color/white"
+                android:textColor="@color/ad_txtcolor"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 tools:ignore="SmallSp" />
