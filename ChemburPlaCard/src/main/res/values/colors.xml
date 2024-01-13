@@ -9,4 +9,10 @@
     <color name="ad_btn_textcolor">@color/white</color>
     <color name="ad_bg_maincolor">@color/white</color>
 
+
+    <color name="progress_bg">@color/black</color>
+    <color name="progress_text">@color/white</color>
+    <color name="progress_loader">@color/white</color>
+
+
 </resources>

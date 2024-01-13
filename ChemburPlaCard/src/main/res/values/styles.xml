@@ -8,4 +8,10 @@
         <item name="android:background">@android:color/transparent</item>
         <item name="android:windowFullscreen">false</item>
     </style>
+
+    <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/progress_loader</item>
+        <item name="android:textColor">@color/progress_text</item>
+        <item name="android:background">@color/progress_bg</item>
+    </style>
 </resources>

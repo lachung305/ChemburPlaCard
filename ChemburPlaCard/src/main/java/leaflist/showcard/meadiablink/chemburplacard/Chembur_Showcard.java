@@ -220,7 +220,7 @@ public class Chembur_Showcard {
     public static ProgressDialog progressDialog;
 
     public void callhandler(AppDataback appDataback, long l) {
-        progressDialog = new ProgressDialog(activity);
+        progressDialog = new ProgressDialog(activity,R.style.MyAlertDialogStyle);
         progressDialog.setMessage("Please Wait Loading data");
         progressDialog.setProgressStyle(0);
         progressDialog.setIndeterminate(true);
